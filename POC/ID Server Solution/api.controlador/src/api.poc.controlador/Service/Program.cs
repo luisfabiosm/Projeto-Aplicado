@@ -1,6 +1,16 @@
+using Adapters.Inbound.RestAdapters.Configuration;
+using Service.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
+
+IConfiguration configuration = new ConfigurationBuilder()
+                  .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                  .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
+                  .AddEnvironmentVariables()
+                  .Build();
+
+builder.Services.ConfigureServices(configuration);
+
 var app = builder.Build();
-
-app.MapGet("/", () => "Hello World!");
-
+app.UseAPIExtensions();
 app.Run();

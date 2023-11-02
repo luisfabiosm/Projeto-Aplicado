@@ -1,7 +1,7 @@
 ﻿using Domain.Core.Base;
-using Domain.Core.Contracts;
 using Domain.Core.Models.Entities;
 using Domain.Core.Models.VO;
+using Domain.Core.Ports.Inbound;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
