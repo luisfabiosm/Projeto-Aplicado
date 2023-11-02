@@ -24,7 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infra\Injections\" />
+    <Folder Include="Adapters\Inbound\Configuration\" />
+    <Folder Include="Adapters\Outbound\DBProviderAdapter\Configuration\" />
+    <Folder Include="Adapters\Outbound\IdentityProviderAdapter\Configuration\" />
   </ItemGroup>
 
 </Project>

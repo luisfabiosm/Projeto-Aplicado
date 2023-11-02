@@ -7,11 +7,23 @@
     <UserSecretsId>c44a550a-a411-4c5a-a0d8-81a9b5ca1bbc</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <AssemblyName />
+    <RootNamespace />
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Keycloak.Net" Version="1.0.18" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Adapters\Inbound\RestAdapters\" />
+    <Folder Include="Adapters\Outbound\DBAdapters\Configuration\" />
+    <Folder Include="Adapters\Outbound\IdentityServerAdapters\Configuration\" />
+    <Folder Include="Domain\Core\Exceptions\" />
+    <Folder Include="Domain\Core\Enums\" />
+    <Folder Include="Domain\UseCases\Manager\" />
+    <Folder Include="Domain\UseCases\Scopes\" />
   </ItemGroup>
 
 </Project>
