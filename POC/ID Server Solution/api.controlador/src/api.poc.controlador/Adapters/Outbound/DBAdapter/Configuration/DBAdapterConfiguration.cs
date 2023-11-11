@@ -21,6 +21,8 @@ namespace Adapters.Outbound.DBAdapter.Configuration
             services.AddTransient<IDBRepositoryPort, DBRepository>();
 
             return services;
+
+            #endregion
         }
     }
 }

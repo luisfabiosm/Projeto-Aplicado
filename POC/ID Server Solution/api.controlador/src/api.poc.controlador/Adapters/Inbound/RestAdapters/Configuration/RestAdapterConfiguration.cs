@@ -1,4 +1,6 @@
-﻿namespace Adapters.Inbound.RestAdapters.Configuration
+﻿using Adapters.Inbound.RestAdapters.Routes;
+
+namespace Adapters.Inbound.RestAdapters.Configuration
 {
     public static class RestAdapterConfiguration
     {
@@ -20,10 +22,10 @@
 
 
             //Endpoints
-            app.AddAbrirTesourariaEndpoint();
+            app.AddGetAuthorizationEndpoint();
     
         }
     }
 
 }
-}
+

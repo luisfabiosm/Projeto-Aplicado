@@ -2,7 +2,6 @@
 using Domain.Core.Models.Entities;
 using Domain.Core.Models.VO;
 using Domain.Core.Ports.Inbound;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace Domain.UseCases.GetAuthorization
@@ -10,31 +9,43 @@ namespace Domain.UseCases.GetAuthorization
     public class UseCaseGetAuthorization : BaseUseCase, IUseCaseGetAuthorization
     {
 
-        public UseCaseGetAuthorization(IServiceProvider serviceProvider): base(serviceProvider)
+        public UseCaseGetAuthorization(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            
+
         }
 
         public async Task<BaseReturn> ExecuteTransaction(TransactionGetAuthorization transaction)
         {
             try
             {
-              
-                    var operatorret = await UseCaseValidation(transaction);
-                    if (operatorret is null)
-                        return handleReturn(new Exception("User e Secret não registrados ou inativos."));
+                transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog);
 
-                    var tokenret = await _identityService.ExecuteGetToken(transaction.Credentilas);
+                var operatorret = await UseCaseValidation(transaction);
+                if (operatorret is null)
+                    return handleReturn(new Exception("User e Secret não registrados ou inativos."));
 
-                    var updateret = await _repo.UpdateAuthenticationInfo(JsonConvert.DeserializeObject<TokenInfo>(tokenret.ToString()), transaction.OIDConfiguration.Username, transaction.OIDConfiguration.Secret);
-                    if (!updateret)
-                        return handleReturn(new Exception("Erro na atualização de retorno da geração do token."));
+                var tokenret = await _identityService.ExecuteGetToken(transaction.Credentials);
 
-                    return handleReturn(tokenret);
+                var updateret = await _repo.GetAuthenticationInfo(JsonConvert.DeserializeObject<TokenInfo>(tokenret.ToString()), transaction.UserRequest, transaction.SecretRequest);
+           
                 
+                if (!updateret)
+                    return handleReturn(new Exception("Erro na atualização de retorno da geração do token."));
+
+
+                
+
+                return handleReturn(tokenret);
+
             }
             catch (Exception ex)
-            { return handleReturn(ex); }
+            {
+                transaction.TransactionLog.TranResponseInfo = JsonConvert.SerializeObject(ex);
+                return handleReturn(ex); }
+            finally
+            {
+                await _repo.UpdateLogTransaction(transaction.TransactionLog);
+            }
         }
 
         private async Task<Operator> UseCaseValidation(TransactionGetAuthorization transaction)

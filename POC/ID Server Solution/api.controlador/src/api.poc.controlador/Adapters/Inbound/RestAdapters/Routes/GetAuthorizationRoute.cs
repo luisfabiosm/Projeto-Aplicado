@@ -1,7 +1,7 @@
 ﻿using Adapters.Inbound.RestAdapters.VM;
 using Domain.Core.Base;
-using Domain.Core.Contracts;
 using Domain.Core.Enums;
+using Domain.Core.Ports.Inbound;
 using Domain.UseCases.GetAuthorization;
 
 namespace Adapters.Inbound.RestAdapters.Routes

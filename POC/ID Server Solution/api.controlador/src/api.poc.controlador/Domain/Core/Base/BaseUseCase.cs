@@ -1,20 +1,20 @@
-﻿using Domain.Core.Contracts;
-using Domain.Core.Enums;
+﻿using Domain.Core.Enums;
+using Domain.Core.Ports.Outbound;
 using System;
 
 namespace Domain.Core.Base
 {
     public abstract class BaseUseCase
     {
-        protected readonly IDBRepository _repo;
-        protected readonly IIdentityProviderService _identityService;
+        protected readonly IDBRepositoryPort _repo;
+        protected readonly IIdentityServerServicePort _identityService;
 
 
 
         public BaseUseCase(IServiceProvider serviceProvider)
         {
-            _repo = serviceProvider.GetRequiredService<IDBRepository>();
-            _identityService = serviceProvider.GetRequiredService<IIdentityProviderService>();
+            _repo = serviceProvider.GetRequiredService<IDBRepositoryPort>();
+            _identityService = serviceProvider.GetRequiredService<IIdentityServerServicePort>();
         }
 
         protected BaseReturn handleReturn(object result, EnumReturnType returntype = EnumReturnType.SUCCESS)
