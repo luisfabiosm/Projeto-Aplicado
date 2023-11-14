@@ -1,6 +1,7 @@
 ﻿namespace Domain.Core.Models.Entities
 {
-    public class Client
+    public record Client
     {
+        public string EmailNotify { get; set; }
     }
 }

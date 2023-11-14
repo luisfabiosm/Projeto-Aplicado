@@ -25,7 +25,7 @@ namespace Adapters.Inbound.RestAdapters.Routes
             {
                 var _transaction = new TransactionGetAuthorization
                 {
-                    TransactionCode = "1",
+                    TransactionCode = 100,
                     UserRequest = request.user,
                     SecretRequest = request.secret,
                 };

@@ -4,7 +4,7 @@ namespace Domain.Core.Models.Entities
 {
     public record Operator : IDisposable
     {
-        public string User { get; internal set; }
+        public string Username { get; internal set; }
         public string Password { get; internal set; }
         public AuthCredentials? Credentials { get; internal set; }
         public int? ExpirationSeconds { get; internal set; }
@@ -15,14 +15,14 @@ namespace Domain.Core.Models.Entities
 
         public Operator(string user, string password)
         {
-            User = user;
+            Username = user;
             Password = password;
         }
 
 
         public void Dispose()
         {
-            User = null;
+            Username = null;
             LastUpdate = null;
             Password = null;
             ExpirationSeconds = null;

@@ -24,16 +24,14 @@ namespace Domain.UseCases.GetAuthorization
                 if (operatorret is null)
                     return handleReturn(new Exception("User e Secret não registrados ou inativos."));
 
-                var tokenret = await _identityService.ExecuteGetToken(transaction.Credentials);
+                var tokenret = await _identityService.ExecuteGetToken(operatorret.Credentials);
 
-                var updateret = await _repo.GetAuthenticationInfo(JsonConvert.DeserializeObject<TokenInfo>(tokenret.ToString()), transaction.UserRequest, transaction.SecretRequest);
-           
-                
+                var updateret = await _repo.UpdateAuthenticationInfo(JsonConvert.DeserializeObject<TokenInfo>(tokenret.ToString()), 
+                                                                    transaction.UserRequest, 
+                                                                    transaction.SecretRequest);
+                     
                 if (!updateret)
                     return handleReturn(new Exception("Erro na atualização de retorno da geração do token."));
-
-
-                
 
                 return handleReturn(tokenret);
 

@@ -1,11 +1,25 @@
-﻿namespace Domain.Core.Base
+﻿using Domain.Core.Enums;
+using Domain.Core.Ports.Outbound;
+using System;
+
+namespace Domain.Core.Base
 {
     public abstract class BaseUseCase
     {
-        public int TranCode { get; private set; }
-        public BaseUseCase(int trancode =0) 
+        protected readonly IDBRepositoryPort _repo;
+        protected readonly IIdentityServerServicePort _identityService;
+
+
+
+        public BaseUseCase(IServiceProvider serviceProvider)
         {
-            this.TranCode = trancode;
+            _repo = serviceProvider.GetRequiredService<IDBRepositoryPort>();
+            _identityService = serviceProvider.GetRequiredService<IIdentityServerServicePort>();
+        }
+
+        protected BaseReturn handleReturn(object result, EnumReturnType returntype = EnumReturnType.SUCCESS)
+        {
+            return new BaseReturn(result, returntype);
         }
     }
 }

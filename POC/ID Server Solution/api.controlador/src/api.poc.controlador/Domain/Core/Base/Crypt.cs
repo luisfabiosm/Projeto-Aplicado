@@ -17,13 +17,14 @@ namespace Domain.Core.Base
 
         public Crypt()
         {
-            _secretKey = "w3@sb!ropr0d";
-            _salt = "3|r0";
+            _secretKey = "backspr0d";
+            _salt = "3|y5r0";
             _hashAlgorithm = "SHA1";                // SHA1 ou MD5
             _passwordIterations = 5;                   // qq valor
-            _initVector = "03|R0#&M#D0T#N&T";       // must be 16 bytes
+            _initVector = "04|R0#&M#D0T#N&T";       // must be 16 bytes
             _keySize = 256;
         }
+
 
 
         public string EncryptDESFunction(string cyphertext, string key = null)

@@ -8,7 +8,11 @@ namespace Domain.UseCases.GetAuthorization
 {
     public record TransactionGetAuthorization : BaseTransaction
     {
-   
+        public TransactionGetAuthorization()
+        {
+            
+        }
+
         public TransactionGetAuthorization(DateTime date, int code) : base(date, code)
         {
             this.TransactionCode = 101;
