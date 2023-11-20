@@ -1,6 +1,6 @@
 ﻿using Domain.Core.Models.Settings;
 using Domain.Core.Ports.Inbound;
-using Domain.UseCases.GetAuthorization;
+using Domain.UseCases.GetUserAuthorization;
 
 namespace Adapters.Inbound.Configuration
 {
@@ -9,7 +9,7 @@ namespace Adapters.Inbound.Configuration
 
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
-            services.AddScoped<IUseCaseGetAuthorization, UseCaseGetAuthorization>();
+            services.AddScoped<IUseCaseGetUserAuthorization, UseCaseGetUserAuthorization>();
 
             return services;
         }

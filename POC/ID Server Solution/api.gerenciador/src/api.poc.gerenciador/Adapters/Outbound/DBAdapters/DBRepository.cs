@@ -1,13 +1,8 @@
 ﻿using Dapper;
 using Domain.Core.Models.Entities;
-using Domain.Core.Models.VO;
 using Domain.Core.Ports.Outbound;
-using Keycloak.AuthServices.Sdk.Admin.Models;
-using Microsoft.AspNetCore.DataProtection;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Npgsql;
-using System.Net.Sockets;
 
 namespace Adapters.Outbound.DBAdapters
 {
@@ -24,41 +19,7 @@ namespace Adapters.Outbound.DBAdapters
             _session = _connection.Connection();
         }
 
-        public async ValueTask<Operator> GetAuthenticationInfo(string user, string secret)
-        {
-            string commandSQL = $"SELECT * FROM Operator where User = '{user}' AND Password = '{secret}'";
-            return await _session.QueryFirstOrDefaultAsync<Operator>(commandSQL);
-        }
-
-
-        public async ValueTask<bool> UpdateAuthenticationInfo(TokenInfo token, string user, string secret)
-        {
-
-            string commandSQL = $@" UPDATE Operator SET ExpirationSeconds       = @ExpirationSeconds, 
-                                                                KeycloakSerializedInfo  = @KeycloakSerializedInfo,
-                                                                ForceChange             = {false},
-                                                                LastUpdate              = @LastUpdate
-                                                          WHERE User                    = @User 
-                                                            AND Secret                  = @Secret ";
-
-            var _updateArgs = new
-            {
-                ExpirationSeconds = token.ExpiresIn,
-                KeycloakSerializedInfo = JsonConvert.SerializeObject(token),
-                ForceChange = false,
-                LastUpdate = DateTime.UtcNow,
-                // RefreshToken = game.AverageDuration,
-                User = user,
-                Secret = secret
-            };
-
-            var ret = await _session.ExecuteAsync(commandSQL, _updateArgs);
-            return ret > 0 ? true : false;
-
-
-        }
-
-
+     
         public async ValueTask<LogTransaction> SaveLogTransaction(LogTransaction log)
         {
             string commandSQL = @"INSERT INTO LogTransaction (TranRealDate, TranLogID, TranCode, TranSourceApp, TranRequestInfo, TranDetailInfo, TranResponseInfo, TranStatus)
@@ -66,14 +27,14 @@ namespace Adapters.Outbound.DBAdapters
 
             var _insertargs = new
             {
-                log.TranRealDate,
-                log.TranLogID,
-                log.TranCode,
-                log.TranSourceApp,
-                log.TranRequestInfo,
-                log.TranDetailInfo,
-                log.TranResponseInfo,
-                log.TranStatus
+                TranRealDate = log.TranRealDate,
+                TranLogID = log.TranLogID,
+                TranCode = log.TranCode,
+                TranSourceApp = log.TranSourceApp,
+                TranRequestInfo = log.TranRequestInfo,
+                TranDetailInfo = log.TranDetailInfo,
+                TranResponseInfo = log.TranResponseInfo,
+                TranStatus = log.TranStatus
             };
 
             var ret = await _session.ExecuteAsync(commandSQL, _insertargs);
@@ -93,9 +54,9 @@ namespace Adapters.Outbound.DBAdapters
 
             var _updateArgs = new
             {
-                log.TranStatus,
-                log.TranResponseInfo,
-                log.TranLogID
+                TranStatus = log.TranStatus,
+                TranResponseInfo = log.TranResponseInfo,
+                TranLogID = log.TranLogID
             };
 
             var ret = await _session.ExecuteAsync(commandSQL, _updateArgs);
@@ -108,4 +69,6 @@ namespace Adapters.Outbound.DBAdapters
 
         }
     }
+
+
 }

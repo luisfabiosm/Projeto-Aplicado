@@ -10,7 +10,6 @@ namespace Domain.Core.Base
         protected readonly IIdentityServerServicePort _identityService;
 
 
-
         public BaseUseCase(IServiceProvider serviceProvider)
         {
             _repo = serviceProvider.GetRequiredService<IDBRepositoryPort>();

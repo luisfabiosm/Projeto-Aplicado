@@ -19,7 +19,7 @@ namespace Adapters.Inbound.RestAdapters.Routes
              .Produces<BaseError>(StatusCodes.Status500InternalServerError);
         }
 
-        private static async Task<IResult> ProcRequest(IUseCaseGetAuthorization useCase, HttpContext context, GetAuthorizationRequest request)
+        private static async Task<IResult> ProcRequest(IUseCaseGetUserAuthorization useCase, HttpContext context, GetAuthorizationRequest request)
         {
             try
             {
