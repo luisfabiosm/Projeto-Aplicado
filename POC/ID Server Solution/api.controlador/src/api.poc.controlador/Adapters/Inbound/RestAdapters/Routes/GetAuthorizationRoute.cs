@@ -1,8 +1,8 @@
-﻿using Adapters.Inbound.RestAdapters.VM;
+﻿using Adapters.Inbound.RestAdapters.Mapping;
+using Adapters.Inbound.RestAdapters.VM;
 using Domain.Core.Base;
 using Domain.Core.Enums;
 using Domain.Core.Ports.Inbound;
-using Domain.UseCases.GetAuthorization;
 
 namespace Adapters.Inbound.RestAdapters.Routes
 {
@@ -23,14 +23,9 @@ namespace Adapters.Inbound.RestAdapters.Routes
         {
             try
             {
-                var _transaction = new TransactionGetAuthorization
-                {
-                    TransactionCode = 100,
-                    UserRequest = request.user,
-                    SecretRequest = request.secret,
-                };
+      
 
-                var response = await useCase.ExecuteTransaction(_transaction);
+                var response = await useCase.ExecuteTransaction(MappingToTransaction.ToTransactionGetAuthorization(request));
                 return response.GetResponse();
             }
             catch (Exception ex)

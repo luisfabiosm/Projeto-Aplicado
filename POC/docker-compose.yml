@@ -1,0 +1,38 @@
+version: '3'
+services:
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.5
+    container_name: mykeycloak
+    ports:
+      - "8089:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      DB_VENDOR: h2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      #KEYCLOAK_FRONTEND_URL: ''
+      
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: adminad@009
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: adminad@009
+      MAX_LOGIN_ATTEMPTS: 0
+    ports:
+      - "8088:80"  # Mapping to 8088 on the host, as originally configured
+    depends_on:
+      - db
+

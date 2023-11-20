@@ -8,7 +8,7 @@ namespace Adapters.Inbound.RestAdapters.Configuration
         {
 
             services.AddEndpointsApiExplorer();
-
+            services.AddSwaggerGen();
             return services;
         }
 
