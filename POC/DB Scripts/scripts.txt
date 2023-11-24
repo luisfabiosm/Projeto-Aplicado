@@ -1,0 +1,73 @@
+-- Table: public.Logtransaction
+
+-- DROP TABLE IF EXISTS public."Logtransaction";
+
+CREATE TABLE IF NOT EXISTS public."Logtransaction"
+(
+    "TranRealDate" timestamp without time zone NOT NULL,
+    "TranLogID" character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    "TranCode" integer NOT NULL,
+    "TranSourceApp" character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    "TranRequestInfo" jsonb NOT NULL,
+    "TranDetailInfo" jsonb NOT NULL,
+    "TranResponseInfo" jsonb NOT NULL,
+    "TranStatus" integer NOT NULL,
+    CONSTRAINT "LogTransaction_pkey" PRIMARY KEY ("TranLogID")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Logtransaction"
+    OWNER to postgres;
+	
+-- Table: public.Operator
+
+-- DROP TABLE IF EXISTS public."Operator";
+
+CREATE TABLE IF NOT EXISTS public."Operator"
+(
+    "Username" character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    "Password" character varying(100) COLLATE pg_catalog."default",
+    "Credentials" jsonb,
+    "ExpirationSeconds" integer,
+    "KeycloakSerializedInfo" character varying(255) COLLATE pg_catalog."default",
+    "ForceChange" boolean NOT NULL,
+    "LastUpdate" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Operator"
+    OWNER to postgres;
+	
+	
+-- Table: public.ClientConfiguration
+
+-- DROP TABLE IF EXISTS public."ClientConfiguration";
+
+CREATE TABLE IF NOT EXISTS public."ClientConfiguration"
+(
+    id character varying(255) COLLATE pg_catalog."default",
+    realm character varying(255) COLLATE pg_catalog."default",
+    clientid character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default",
+    enabled boolean,
+    clientauthenticatortype character varying(255) COLLATE pg_catalog."default",
+    beareronly boolean,
+    publicclient boolean,
+    protocol character varying(255) COLLATE pg_catalog."default",
+    attributes jsonb,
+    nodereregistrationtimeout integer,
+    defaultclientscopes character varying(255)[] COLLATE pg_catalog."default",
+    optionalclientscopes character varying(255)[] COLLATE pg_catalog."default",
+    access_view boolean,
+    access_configure boolean,
+    access_manage boolean,
+    protocolmappers jsonb[],
+    CONSTRAINT clientconfiguration_pkey PRIMARY KEY (clientid)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."ClientConfiguration"
+    OWNER to postgres;

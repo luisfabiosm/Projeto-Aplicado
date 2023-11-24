@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "rADAMJelRLXttHu9YExRrAmtFqFCieR3rJVPFukj6hk=",
+  "Source": "api.poc.gerenciador",
+  "BasePath": "_content/api.poc.gerenciador",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
