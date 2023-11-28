@@ -24,7 +24,7 @@ namespace Adapters.Inbound.RestAdapters.ClientApplication.Routes
             try
             {
                 var response = await useCase.ExecuteTransaction(ClientApplicationMappingToTransaction.ToTransactionListClients(realm));
-                return ClientApplicationMappingToResponse.ToTransactionListClientsResponse(response.GetResponse());
+                return response.GetResponse();
             }
             catch (Exception ex)
             {

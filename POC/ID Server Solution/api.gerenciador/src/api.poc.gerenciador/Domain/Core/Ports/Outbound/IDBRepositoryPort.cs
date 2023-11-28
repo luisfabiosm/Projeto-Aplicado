@@ -3,6 +3,7 @@ using Domain.Core.Enums;
 using Domain.Core.Models.Entities;
 using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.UseCases.Users.CreateUser;
+using Keycloak.Net.Models.Clients;
 
 namespace Domain.Core.Ports.Outbound
 {
@@ -16,5 +17,8 @@ namespace Domain.Core.Ports.Outbound
 
         ValueTask<User> GetUser(string realm, string clientid, string username);
 
+        ValueTask<Models.Entities.Client> AddNewClient(Models.Entities.Client client);
+
+       // ValueTask<Models.Entities.Client> GetClient(string realm, string clientid);
     }
 }

@@ -14,7 +14,7 @@ namespace Adapters.Inbound.RestAdapters.ClientApplication.Routes
         {
             app.MapGet("gerenciador/v1/client", ProcRequest)
              .WithTags("Get Client Application")
-             .Produces<GetClientResponse>(StatusCodes.Status200OK)
+             .Produces<ClientResponse>(StatusCodes.Status200OK)
              .Produces<BaseError>(StatusCodes.Status400BadRequest)
              .Produces<BaseError>(StatusCodes.Status500InternalServerError);
 
@@ -25,7 +25,7 @@ namespace Adapters.Inbound.RestAdapters.ClientApplication.Routes
             try
             {
                 var response = await useCase.ExecuteTransaction(ClientApplicationMappingToTransaction.ToTransactionGetClient(realm, clientId));
-                return ClientApplicationMappingToResponse.ToTransactionGetClientResponse(response.GetResponse());
+                return response.GetResponse();
             }
             catch (Exception ex)
             {

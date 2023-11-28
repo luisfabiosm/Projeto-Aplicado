@@ -12,7 +12,7 @@ namespace Adapters.Inbound.RestAdapters.ClientApplication.Mapping
         public static TransactionRegisterClient ToTransactionRegisterClient(RegisterClientRequest request)
         {
 
-            return new TransactionRegisterClient
+            return new TransactionRegisterClient(DateTime.UtcNow)
             {
                 ClientInfo = new RegistrationClient
                 {

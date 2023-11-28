@@ -76,10 +76,14 @@ namespace Adapters.Outbound.IdentityAdapter
         {
             try
             {
-                _adminAuthHeaders = GetToken();
-                var response = await _keycloakApi.CreateClient(realm, _adminAuthHeaders, request);
 
-                return GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "clients/");
+                //1 -  Gerar token
+                _adminAuthHeaders = GetToken();
+
+                //2 criar client
+                var response = await _keycloakApi.CreateClient(realm, _adminAuthHeaders, request);
+                return  GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "clients/");
+
             }
             catch (Exception ex)
             {

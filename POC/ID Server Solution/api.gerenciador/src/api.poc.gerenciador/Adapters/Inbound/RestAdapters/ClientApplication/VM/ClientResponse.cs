@@ -1,19 +1,28 @@
-﻿using Domain.Core.Models.KeycloakAdminAPI;
+﻿
+
+using Domain.Core.Models.Entities;
 
 namespace Adapters.Inbound.RestAdapters.ClientApplication.VM
 {
-    public record ClientResponse
+    public record ClientResponse :Client
     {
 
-        public string Id { get; init; }
-        public string ClientId { get; init; }
-        public string Name { get; init; }
-        public string ClientAuthenticatorType { get; init; }
-        public int NodeReRegistrationTimeout { get; init; }
-        public List<string> DefaultClientScopes { get; init; }
-        public List<string> OptionalClientScopes { get; init; }
-        public Access Access { get; init; }
-        public List<ProtocolMapper> ProtocolMappers { get; init; }
+       
+
+        public ClientResponse(Client client )
+        {
+
+            realm = client.realm;
+            id = client.id;
+            clientid = client.clientid;
+            name = client.name;
+            publicclient = client.publicclient;
+            createdat = client.createdat;
+            isactive = client.isactive;
+            email = client.email;
+            appidentityconfiguration = client.appidentityconfiguration;
+            
+        }
 
     }
 }

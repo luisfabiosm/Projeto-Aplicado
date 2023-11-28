@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Domain.Core.Base;
-using Domain.Core.Enums;
 using Domain.Core.Models.Entities;
 using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Outbound;
@@ -8,6 +7,7 @@ using Domain.UseCases.Users.CreateUser;
 using Newtonsoft.Json;
 using Npgsql;
 using NpgsqlTypes;
+using System.Transactions;
 
 namespace Adapters.Outbound.DBAdapters
 {
@@ -78,15 +78,42 @@ namespace Adapters.Outbound.DBAdapters
 
         }
 
+        public async ValueTask<Client> AddNewClient(Client client)
+        {
+            string commandSQL = $@"INSERT INTO public.client (realm, id, clientid, name, publicclient, createdat, isactive, email, appidentityconfiguration)
+                                                    VALUES (@realm, @id, @clientid, @name, @publicclient, @createdat, @isactive,  @email, @appidentityconfiguration)";
 
-        public async ValueTask<User> AddNewUser(TransactionCreateUser transaction, UserRepresentation user)
+
+            var _insertArgs = new Client
+            {
+                realm = client.realm,
+                id = client.id,
+                clientid = client.clientid,
+                name = client.name,
+                publicclient = client.publicclient,
+                createdat = DateTime.UtcNow,
+                isactive = true,
+                appidentityconfiguration = client.appidentityconfiguration,
+                email = client.email,
+            };
+
+            var ret = await _session.ExecuteAsync(commandSQL, _insertArgs);
+            if (ret <= 0) throw new Exception("Erro gravação do client.");
+
+
+            commandSQL = $"SELECT * FROM public.client where clientid = '{_insertArgs.clientid}'";
+
+            return await _session.QueryFirstOrDefaultAsync<Client>(commandSQL);
+        }
+
+        public async ValueTask<Domain.Core.Models.Entities.User> AddNewUser(TransactionCreateUser transaction, UserRepresentation user)
         {
 
             string commandSQL = $@"INSERT INTO public.users (realm, clientid, sysusername, syspassword, createdat, isactive , email,  identityuserinfo)
                                                     VALUES (@realm, @clientid, @sysusername, @syspassword, @createdat, @isactive,  @email, @identityuserinfo)";
 
 
-            var _insertArgs = new User
+            var _insertArgs = new Domain.Core.Models.Entities.User
             {
                 realm = transaction.UserInfo.Realm,
                 clientid = transaction.UserInfo.ClientId,
@@ -104,10 +131,10 @@ namespace Adapters.Outbound.DBAdapters
 
             commandSQL = $"SELECT * FROM public.users where clientid = '{_insertArgs.clientid}'";
 
-            return await _session.QueryFirstOrDefaultAsync<User>(commandSQL);
+            return await _session.QueryFirstOrDefaultAsync<Domain.Core.Models.Entities.User>(commandSQL);
         }
 
-        public async ValueTask<User> GetUser(string realm, string clientid, string username)
+        public async ValueTask<Domain.Core.Models.Entities.User> GetUser(string realm, string clientid, string username)
         {
      
             string commandSQL = "SELECT * FROM Users WHERE realm = @Realm AND clientid = @ClientId AND sysusername = @SysUsername AND IsActive = true";
@@ -119,11 +146,15 @@ namespace Adapters.Outbound.DBAdapters
                 SysUsername = username
             };
 
-            var user = await _session.QueryFirstOrDefaultAsync<User>(commandSQL, queryArgs);
+            var user = await _session.QueryFirstOrDefaultAsync<Domain.Core.Models.Entities.User>(commandSQL, queryArgs);
 
             return user;
         }
 
+        //public ValueTask<Client> GetClient(string realm, string clientid)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
 

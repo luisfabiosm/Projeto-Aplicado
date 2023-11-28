@@ -14,7 +14,7 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
                 
         }
 
-        public TransactionRegisterClient(DateTime date, int code) : base(date, code)
+        public TransactionRegisterClient(DateTime date, int code=700) : base(date, code)
         {
             TransactionCode = 700;
             TransactionDate = date;
@@ -30,7 +30,7 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
         public string Realm { get; internal set; }
         public string ClientName { get; internal set; }
         public string Description { get; set; }
-
+        public string Email { get; set; }
         public string ClientId
         {
             get { return _clientid; }
@@ -39,13 +39,14 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
         public bool ClientAuthentitcation { get; init; } = true;
         public RegistrationScope ScopeInfo { get; private set; }
 
-        public RegistrationClient(string realm, string clientName, string clientid, string description = "")
+        public RegistrationClient(string realm, string clientName, string clientid, string email, string description = "")
         {
             Realm = realm;
             ClientName = clientName;
             _clientid = clientid;
             ScopeInfo = new RegistrationScope(_clientid);
             Description = description;
+            Email = email;
         }
 
     }
