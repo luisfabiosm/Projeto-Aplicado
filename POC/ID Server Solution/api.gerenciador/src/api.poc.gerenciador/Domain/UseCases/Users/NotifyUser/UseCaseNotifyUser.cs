@@ -19,22 +19,29 @@ namespace Domain.UseCases.Users.NotifyUser
         {
             try
             {
-                transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog);
+                transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
 
                 var _retUser = await _identityService.GetUsersByUsername(transaction.Realm, transaction.Username);
 
-                await _notifyService.SendEmail(transaction.Email, "UserInfo", JsonConvert.SerializeObject(_retUser));
+                var _userInfo = await _repo.GetUser(transaction.Realm, transaction.ClientId, transaction.Username);
 
-                return handleReturn(_retUser);
+                var _notificationId = await _notifyService.SendEmail(_userInfo.email, "UserInfo", JsonConvert.SerializeObject(_userInfo));
+
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(_notificationId);
+                transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.CONFIRMED;
+
+
+                return handleReturn(_notificationId);
             }
             catch (Exception ex)
             {
-                transaction.TransactionLog.TranResponseInfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.PENDING;
                 return handleReturn(ex);
             }
             finally
             {
-                await _repo.UpdateLogTransaction(transaction.TransactionLog);
+                await _repo.UpdateLogTransaction(transaction);
             }
 
 

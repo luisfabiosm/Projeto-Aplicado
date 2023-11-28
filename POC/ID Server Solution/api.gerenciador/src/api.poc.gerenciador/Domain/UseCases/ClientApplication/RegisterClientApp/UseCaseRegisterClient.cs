@@ -17,12 +17,15 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
         {
             try
             {
-                using (var _request = new CreateClientRequest(transaction))
+                using (var _request = new CreateClientKeycloak(transaction))
                 {
 
-                    transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog);
+                    transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
 
                     var _ret = await _identityService.CreateClientAsync(transaction.ClientInfo.Realm, _request);
+
+                    transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(_ret);
+                    transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.CONFIRMED;
 
                     return handleReturn(_ret);
                 }
@@ -30,12 +33,13 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
             }
             catch (Exception ex)
             {
-                transaction.TransactionLog.TranResponseInfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.PENDING;
                 return handleReturn(ex);
             }
             finally
             {
-                await _repo.UpdateLogTransaction(transaction.TransactionLog);
+                await _repo.UpdateLogTransaction(transaction);
             }
 
 

@@ -13,11 +13,14 @@ namespace Adapters.Outbound.DBAdapters
         public DBConnection(ConnectionSettings settings)
         {
             _connection = new NpgsqlConnection(settings.GetConnectionString());
+            _connection.Open();
         }
 
         public NpgsqlConnection Connection()
         {
-            _connection.Open();
+            if (_connection.State != System.Data.ConnectionState.Open)
+                 _connection.Open();
+
             return _connection;
         }
 

@@ -9,12 +9,13 @@ namespace Domain.UseCases.SecurityDomain.AddSecurityDomain
 
         public TransactionAddSecurityDomain()
         {
-
+            
         }
 
-        public TransactionAddSecurityDomain(DateTime date, int code) : base(date, code)
+        public TransactionAddSecurityDomain(DateTime date, int code=900) : base(date, code)
         {
-            TransactionCode = 900;
+           
+            TransactionCode = code;
             TransactionDate = date;
         }
 

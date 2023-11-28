@@ -9,7 +9,7 @@ namespace Adapters.Inbound.RestAdapters.SecurityDomain.Mapping
         public static TransactionAddSecurityDomain ToTransactionAddSecurityDomain(AddSecurityDomainRequest request)
         {
 
-            return new TransactionAddSecurityDomain
+            return new TransactionAddSecurityDomain(DateTime.Now)
             {
                 Realm = request.Realm,
             };

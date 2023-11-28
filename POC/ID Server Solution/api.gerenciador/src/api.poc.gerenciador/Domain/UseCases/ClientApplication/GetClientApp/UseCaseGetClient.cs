@@ -15,19 +15,23 @@ namespace Domain.UseCases.ClientApplication.GetClientApp
         {
             try
             {
-                transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog);
+                transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
                 var _retRealm = await _identityService.GetClientByClienId(transaction.Realm, transaction.ClientId);
+
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(_retRealm);
+                transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.CONFIRMED;
 
                 return handleReturn(_retRealm);
             }
             catch (Exception ex)
             {
-                transaction.TransactionLog.TranResponseInfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.PENDING;
                 return handleReturn(ex);
             }
             finally
             {
-                await _repo.UpdateLogTransaction(transaction.TransactionLog);
+                await _repo.UpdateLogTransaction(transaction);
             }
 
 

@@ -17,28 +17,30 @@ namespace Domain.UseCases.SecurityDomain.AddSecurityDomain
 
         public async Task<BaseReturn> ExecuteTransaction(TransactionAddSecurityDomain transaction)
         {
-
+        
             try
             {
                 using (var _request = new CreateRealmRequest(transaction.Realm))
                 {
 
-                    transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog);
+                    transaction.TransactionLog  = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
 
                     var _retRealm = await _identityService.CreateRealmAsync(_request);
-
+                    transaction.TransactionLog.tranresponseinfo = _retRealm;
+                    transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.CONFIRMED;
                     return handleReturn(_retRealm);
                 }
 
             }
             catch (Exception ex)
             {
-                transaction.TransactionLog.TranResponseInfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.PENDING;
                 return handleReturn(ex);
             }
             finally
             {
-                await _repo.UpdateLogTransaction(transaction.TransactionLog);
+                await _repo.UpdateLogTransaction(transaction);
             }
         }
     }

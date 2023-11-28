@@ -6,9 +6,9 @@ namespace Adapters.Outbound.IdentityAdapter.KeycloakPorts
     public interface IKeycloakAdminAPIPort
     {
 
-        [Post("/realms/master/protocol/openid-connect/token")]
+        [Post("/realms/{realm}/protocol/openid-connect/token")]
         [Headers("Content-Type: application/x-www-form-urlencoded")]
-        Task<AccessToken> GetAccessToken([Body(BodySerializationMethod.UrlEncoded)] AccessTokenRequest request);
+        Task<AccessToken> GetAccessToken(string realm, [Body(BodySerializationMethod.UrlEncoded)] AccessTokenRequest request);
 
 
         [Post("/admin/realms")]
@@ -18,12 +18,12 @@ namespace Adapters.Outbound.IdentityAdapter.KeycloakPorts
 
         [Post("/admin/realms/{realm}/clients")]
         [Headers("Content-Type: application/json")]
-        Task<HttpResponseMessage> CreateClient(string realm, [Header("Authorization")] string bearerToken, CreateClientRequest request);
+        Task<HttpResponseMessage> CreateClient(string realm, [Header("Authorization")] string bearerToken, CreateClientKeycloak request);
 
 
         [Post("/admin/realms/{realm}/users")]
         [Headers("Content-Type: application/json")]
-        Task<HttpResponseMessage> CreateUsers(string realm, [Header("Authorization")] string bearerToken, CreateUserRequest request);
+        Task<HttpResponseMessage> CreateUsers(string realm, [Header("Authorization")] string bearerToken, CreateUserKeycloak request);
 
 
         [Post("/admin/realms/{realm}/client-scopes")]
@@ -69,6 +69,10 @@ namespace Adapters.Outbound.IdentityAdapter.KeycloakPorts
         [Get("/admin/realms/{realm}/users")]
         [Headers("Content-Type: application/json")]
         Task<List<UserConfiguration>> GetUserByUsername(string realm, Dictionary<string, string> queryParams, [Header("Authorization")] string bearerToken);
+
+        [Get("/admin/realms/{realm}/users/{Id}")]
+        [Headers("Content-Type: application/json")]
+        Task<UserRepresentation> GetUserById(string realm, string Id, [Header("Authorization")] string bearerToken);
 
 
     }

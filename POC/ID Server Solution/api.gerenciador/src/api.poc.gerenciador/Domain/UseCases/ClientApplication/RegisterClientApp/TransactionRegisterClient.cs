@@ -11,7 +11,7 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
 
         public TransactionRegisterClient()
         {
-
+                
         }
 
         public TransactionRegisterClient(DateTime date, int code) : base(date, code)

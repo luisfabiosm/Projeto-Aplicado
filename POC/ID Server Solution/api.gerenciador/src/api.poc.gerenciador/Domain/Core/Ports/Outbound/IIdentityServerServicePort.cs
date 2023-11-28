@@ -6,15 +6,15 @@ namespace Domain.Core.Ports.Outbound
 {
     public interface IIdentityServerServicePort
     {
+        Task<string> GetToken(string realm, string clientid, string username, string password);
 
-  
         Task<string> CreateRealmAsync(CreateRealmRequest request);
 
 
-        Task<string> CreateClientAsync(string realm, CreateClientRequest request);
+        Task<string> CreateClientAsync(string realm, CreateClientKeycloak request);
 
 
-        Task<string> CreateUserAsync(string realm, CreateUserRequest request);
+        Task<string> CreateUserAsync(string realm, CreateUserKeycloak request);
 
 
         Task<string> CreateClientScopes(string realm, CreateClientScopesRequest request);
@@ -42,6 +42,8 @@ namespace Domain.Core.Ports.Outbound
 
 
         Task<UserConfiguration> GetUsersByUsername(string realm, string username);
+
+        Task<UserRepresentation> GetUsersById(string realm, string Id);
 
     }
 }

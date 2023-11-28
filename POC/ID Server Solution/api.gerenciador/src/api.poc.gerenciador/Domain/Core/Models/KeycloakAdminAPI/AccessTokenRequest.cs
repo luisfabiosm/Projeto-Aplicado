@@ -16,6 +16,11 @@ namespace Domain.Core.Models.KeycloakAdminAPI
         [JsonPropertyName("grant_type")]
         public string GrantType { get; set; }
 
- 
+        public AccessTokenRequest()
+        {
+                
+        }
+
+
     }
 }

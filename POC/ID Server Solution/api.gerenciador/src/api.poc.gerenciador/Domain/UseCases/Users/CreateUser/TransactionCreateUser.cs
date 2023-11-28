@@ -1,7 +1,5 @@
 ﻿using Domain.Core.Base;
 using Domain.Core.Models.KeycloakAdminAPI;
-using Domain.UseCases.ClientApplication.RegisterClientApp;
-using System.Text.Json.Serialization;
 
 namespace Domain.UseCases.Users.CreateUser
 {
@@ -15,7 +13,8 @@ namespace Domain.UseCases.Users.CreateUser
 
         }
 
-        public TransactionCreateUser(DateTime date, int code) : base(date, code)
+     
+        public TransactionCreateUser(DateTime date, int code = 750) : base(date, code)
         {
             TransactionCode = 750;
             TransactionDate = date;
@@ -25,8 +24,10 @@ namespace Domain.UseCases.Users.CreateUser
 
     public record RegistrationUser
     {
-        public string Realm { get; internal set; }
+        public string Realm { get; set; }
+        public string ClientId { get; set; }
         public string Username { get; init; }
+        public string Password { get; init; }
         public string Email { get; init; }
         public string FirstName { get; init; }
         public string LastName { get; init; }

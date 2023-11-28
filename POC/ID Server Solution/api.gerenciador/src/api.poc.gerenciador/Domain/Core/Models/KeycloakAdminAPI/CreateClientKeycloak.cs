@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Domain.Core.Models.KeycloakAdminAPI
 {
-    public record CreateClientRequest : IDisposable
+    public record CreateClientKeycloak : IDisposable
     {
 
         [JsonPropertyName("protocol")]
@@ -39,7 +39,7 @@ namespace Domain.Core.Models.KeycloakAdminAPI
             //{ "oauth2.device.authorization.grant.enabled", true }
         };
 
-        public CreateClientRequest(TransactionRegisterClient transaction)
+        public CreateClientKeycloak(TransactionRegisterClient transaction)
         {
             ClientId = transaction.ClientInfo.ClientId;
             Name = transaction.ClientInfo.ClientName;

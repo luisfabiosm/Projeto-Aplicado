@@ -19,5 +19,10 @@ namespace Domain.Core.Models.KeycloakAdminAPI
 
         [JsonPropertyName("temporary")]
         public bool Temporary { get; init; } = false;
+
+        public UserCredentials()
+        {
+                
+        }
     }
 }

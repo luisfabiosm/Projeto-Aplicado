@@ -18,16 +18,20 @@ namespace Domain.UseCases.Users.ListUsers
             {
                 var _retRealm = await _identityService.GetUsers(transaction.Realm);
 
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(_retRealm);
+                transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.CONFIRMED;
+
                 return handleReturn(_retRealm);
             }
             catch (Exception ex)
             {
-                transaction.TransactionLog.TranResponseInfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.PENDING;
                 return handleReturn(ex);
             }
             finally
             {
-                await _repo.UpdateLogTransaction(transaction.TransactionLog);
+                await _repo.UpdateLogTransaction(transaction);
             }
 
 

@@ -24,7 +24,7 @@ namespace Adapters.Inbound.RestAdapters.Users.Routes
             try
             {
                 var response = await useCase.ExecuteTransaction(UserRoutesMappingToTransaction.ToTransactionGetUsers(realm, username));
-                return response.GetResponse();
+                return UserRoutesMappingToResponse.ToTransactionGetUserResponse(response.GetResponse());
             }
             catch (Exception ex)
             {

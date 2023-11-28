@@ -1,11 +1,12 @@
 ﻿using Domain.UseCases.ClientApplication.RegisterClientApp;
 using Domain.UseCases.Users.CreateUser;
 using Keycloak.Net.Models.Root;
+using Keycloak.Net.Models.Users;
 using System.Text.Json.Serialization;
 
 namespace Domain.Core.Models.KeycloakAdminAPI
 {
-    public record CreateUserRequest : IDisposable
+    public record CreateUserKeycloak : IDisposable
     {
         [JsonPropertyName("username")]
         public string Username { get; init; }
@@ -14,7 +15,7 @@ namespace Domain.Core.Models.KeycloakAdminAPI
         public bool Enabled { get; init; } = true;
 
         [JsonPropertyName("credentials")]
-        public UserCredentials[] Credentials { get; init; }
+        public UserCredentials[] Credentials { get; set; }
 
         [JsonPropertyName("email")]
         public string Email { get; init; }
@@ -25,19 +26,21 @@ namespace Domain.Core.Models.KeycloakAdminAPI
         [JsonPropertyName("lastName")]
         public string LastName { get; init; }
 
+        public CreateUserKeycloak()
+        {
+            
+        }
 
-        public CreateUserRequest(TransactionCreateUser transaction)
+        public CreateUserKeycloak(TransactionCreateUser transaction)
         {
             Username = transaction.UserInfo.Username;
             Email = transaction.UserInfo.Email;
             FirstName = transaction.UserInfo.FirstName;
             LastName = transaction.UserInfo.LastName;
 
-            for (int i = 0; i < transaction.UserInfo.Credentials.Length; i++)
-            {
-                Credentials[i] = transaction.UserInfo.Credentials[i];
-            }
-            
+            Credentials = new UserCredentials[1];
+            Credentials[0] = transaction.UserInfo.Credentials[0];
+           
         }
 
         public void Dispose()

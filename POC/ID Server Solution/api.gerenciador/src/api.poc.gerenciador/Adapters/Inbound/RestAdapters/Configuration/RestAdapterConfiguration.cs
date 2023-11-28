@@ -26,9 +26,17 @@ namespace Adapters.Inbound.RestAdapters.Configuration
 
 
             //Endpoints
-            app.AddGetUserEndpoint();
             app.AddSecurityDomainEndpoint();
+
+            app.AddGetUserEndpoint();
+            app.AddCreateUserEndpoint();
+            app.AddNotifyUsersEndpoint();
+            app.AddListUsersEndpoint();
+
             app.AddRegisterClientApplicationEndpoint();
+            app.AddGetClientApplicationEndpoint();
+            app.AddListClientsApplicationEndpoint();
+            //app.AddNotifyClientEndpoint();
 
 
         }

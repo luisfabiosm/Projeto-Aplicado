@@ -3,6 +3,6 @@
     public interface INotifyServicePort
     {
 
-        Task SendEmail(string emailaccount, string subject, string information);
+        Task<string> SendEmail(string emailaccount, string subject, string information);
     }
 }

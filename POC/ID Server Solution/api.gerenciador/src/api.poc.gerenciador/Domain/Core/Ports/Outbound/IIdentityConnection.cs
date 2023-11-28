@@ -7,7 +7,7 @@ namespace Domain.Core.Ports.Outbound
     {
         IKeycloakAdminAPIPort Connection();
 
-        string GetAuthToken();
+        string GetAuthToken(string realm = "");
 
 
     }

@@ -26,10 +26,10 @@ namespace Adapters.Outbound.IdentityAdapter
             return _keycloakApi;
         }
 
-        public string GetAuthToken()
+        public string GetAuthToken(string realm = "")
         {
-            if ((_validToken is not null) && ((DateTime.Now - _validToken.ExpirationDate).TotalSeconds >= 0))
-                return _validToken.access_token;
+            //if ((_validToken is not null) && ((DateTime.Now - _validToken.ExpirationDate).TotalSeconds >= 0))
+            //    return _validToken.access_token;
 
             var _requestToken = new AccessTokenRequest
             {
@@ -38,10 +38,11 @@ namespace Adapters.Outbound.IdentityAdapter
                 ClientId = _settings.AccessToken.ClientId ?? "",
                 GrantType = _settings.AccessToken.GrantType ?? ""
             };
+            
+            _validToken = _keycloakApi.GetAccessToken(string.IsNullOrEmpty(realm) ? "master" : realm, _requestToken).Result;
+            //_validToken = _keycloakApi.GetAccessToken("master", _requestToken).Result;
 
-            _validToken = _keycloakApi.GetAccessToken(_requestToken).Result;
-
-            return "Bearer " + _validToken.access_token;
+            return _validToken.access_token;
         }
     }
 }

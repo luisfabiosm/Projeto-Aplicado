@@ -1,14 +1,18 @@
 ﻿using Adapters.Outbound.IdentityAdapter.KeycloakPorts;
 using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Outbound;
+using Domain.UseCases.Users.CreateUser;
+using Keycloak.Net.Models.RealmsAdmin;
+using Keycloak.Net.Models.Root;
 using Refit;
+using System;
 
 namespace Adapters.Outbound.IdentityAdapter
 {
     public class IdentityServerService : IIdentityServerServicePort
     {
-        private static string _authHeaders;
- 
+        private static string _adminAuthHeaders;
+
         private IIdentityConnection _connection;
         private readonly IKeycloakAdminAPIPort _keycloakApi;
         public IdentityServerService(IServiceProvider serviceProvider)
@@ -23,9 +27,9 @@ namespace Adapters.Outbound.IdentityAdapter
 
         }
 
-        private string GetToken()
+        private string GetToken(string realm = "")
         {
-           return _connection.GetAuthToken();
+           return "Bearer " + _connection.GetAuthToken(realm);
         }
 
 
@@ -34,8 +38,30 @@ namespace Adapters.Outbound.IdentityAdapter
             
             try
             {
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.CreateRealm(_authHeaders, request);
+                _adminAuthHeaders = GetToken("");
+                var response = await _keycloakApi.CreateRealm(_adminAuthHeaders, request);
+
+                //create admin user  for Token
+                var _credentials = new UserCredentials
+                {
+                    Value = "admin",
+                    Type = "Password",
+                    UserLabel = "My Password"
+                };
+
+
+                _adminAuthHeaders = GetToken("master");// request.Realm);
+
+                var _newUser = new CreateUserKeycloak
+                {
+                    
+                    Username = "admin",
+                    FirstName = "admin user",
+                    Credentials = new UserCredentials[1] { _credentials },
+                };
+
+
+                var _response = await _keycloakApi.CreateUsers(request.Realm, _adminAuthHeaders, _newUser);
 
                 return GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "realms/");
             }
@@ -46,12 +72,12 @@ namespace Adapters.Outbound.IdentityAdapter
         }
 
 
-        public async Task<string> CreateClientAsync(string realm, CreateClientRequest request)
+        public async Task<string> CreateClientAsync(string realm, CreateClientKeycloak request)
         {
             try
             {
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.CreateClient(realm, _authHeaders, request);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.CreateClient(realm, _adminAuthHeaders, request);
 
                 return GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "clients/");
             }
@@ -62,12 +88,12 @@ namespace Adapters.Outbound.IdentityAdapter
         }
 
 
-        public async Task<string> CreateUserAsync(string realm, CreateUserRequest request)
+        public async Task<string> CreateUserAsync(string realm, CreateUserKeycloak request)
         {
             try
             {
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.CreateUsers(realm, _authHeaders, request);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.CreateUsers(realm, _adminAuthHeaders, request);
 
                 return GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "users/");
             }
@@ -83,8 +109,8 @@ namespace Adapters.Outbound.IdentityAdapter
             try
             {
                 //create scope
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.CreateClientScopes(realm, _authHeaders, request);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.CreateClientScopes(realm, _adminAuthHeaders, request);
                 var _id = GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "client-scopes/");
 
                 //config as default
@@ -102,8 +128,8 @@ namespace Adapters.Outbound.IdentityAdapter
         {
             try
             {
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.ConfigClientScopesAsDefault(realm, clientid, _authHeaders);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.ConfigClientScopesAsDefault(realm, clientid, _adminAuthHeaders);
 
                 if (!response.IsSuccessStatusCode)
                     throw new Exception(response.StatusCode.ToString());
@@ -123,7 +149,7 @@ namespace Adapters.Outbound.IdentityAdapter
             try
             {
 
-                _authHeaders = GetToken();
+                _adminAuthHeaders = GetToken();
                 var _mapper = new ProtocolMapperRequest
                 {
                     Name = mapperName,
@@ -138,7 +164,7 @@ namespace Adapters.Outbound.IdentityAdapter
                     }
                 };
 
-                var response = await _keycloakApi.CreateProtocolMapperClientScope(realm, clientscopeId, _authHeaders, _mapper);
+                var response = await _keycloakApi.CreateProtocolMapperClientScope(realm, clientscopeId, _adminAuthHeaders, _mapper);
 
                 var _id = GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "protocol-mappers/models/");
                 return _id;
@@ -155,8 +181,8 @@ namespace Adapters.Outbound.IdentityAdapter
             try
             {
 
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.AddClientScopeAsDefaultToClient(realm, Id, clientscopeId, _authHeaders);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.AddClientScopeAsDefaultToClient(realm, Id, clientscopeId, _adminAuthHeaders);
 
                 return response.StatusCode.ToString(); ;
             }
@@ -171,8 +197,8 @@ namespace Adapters.Outbound.IdentityAdapter
         {
            try
             {
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.GetClientInstallationById(realm, Id, _authHeaders);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.GetClientInstallationById(realm, Id, _adminAuthHeaders);
 
                 return response;
             }
@@ -188,8 +214,8 @@ namespace Adapters.Outbound.IdentityAdapter
         {
             try
             {
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.GetClients(realm, _authHeaders);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.GetClients(realm, _adminAuthHeaders);
 
                 return response;
             }
@@ -204,8 +230,8 @@ namespace Adapters.Outbound.IdentityAdapter
         {
             try
             {             
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.GetClients(realm, _authHeaders);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.GetClients(realm, _adminAuthHeaders);
 
                 return response.FirstOrDefault(x => x.ClientId == clientId);
             }
@@ -220,8 +246,8 @@ namespace Adapters.Outbound.IdentityAdapter
         {
             try
             {
-                _authHeaders = GetToken();
-                var response = await _keycloakApi.GetUsers(realm, _authHeaders);
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.GetUsers(realm, _adminAuthHeaders);
 
                 return response;
             }
@@ -236,13 +262,13 @@ namespace Adapters.Outbound.IdentityAdapter
         {
             try
             {
-                _authHeaders = GetToken();
+                _adminAuthHeaders = GetToken();
                 var queryParams = new Dictionary<string, string>
                 {
                     {"username", username}
                 };
 
-                var response = await _keycloakApi.GetUserByUsername(realm, queryParams, _authHeaders);
+                var response = await _keycloakApi.GetUserByUsername(realm, queryParams, _adminAuthHeaders);
                 return response.FirstOrDefault(x => x.Username == username);
             }
             catch (Exception ex)
@@ -252,12 +278,43 @@ namespace Adapters.Outbound.IdentityAdapter
         }
 
 
+        public async Task<UserRepresentation> GetUsersById(string realm, string Id)
+        {
+            try
+            {
+                _adminAuthHeaders = GetToken();
+                var response = await _keycloakApi.GetUserById(realm, Id, _adminAuthHeaders);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+
         private string GetIdResponse(string location, string index)
         {
             return location.Substring(location.IndexOf(index) + index.Length);
         }
 
-      
+        public async Task<string> GetToken(string realm, string clientid, string username, string password)
+        {
+
+            var _requestToken = new AccessTokenRequest
+            {
+                Username = username,
+                Password = username,
+                ClientId = clientid,
+                GrantType = "password"
+            };
+
+            var _validToken = _keycloakApi.GetAccessToken(realm, _requestToken).Result;
+
+          return  $"Bearer {_validToken.access_token}";
+        
+        }
     }
 
 

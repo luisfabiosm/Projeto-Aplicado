@@ -5,8 +5,8 @@ namespace Domain.UseCases.Users.NotifyUser
     public record TransactionNotifyUser : BaseTransaction
     {
         public string Realm { get; set; }
+        public string ClientId { get; set; }
         public string Username { get; set; }
-        public string Email { get; set; }
 
 
         public TransactionNotifyUser()

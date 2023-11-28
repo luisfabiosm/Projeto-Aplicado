@@ -5,21 +5,26 @@ namespace Domain.Core.Models.Entities
     public record LogTransaction
     {
 
-        public DateTime TranRealDate { get; private set; }
-        public Guid TranLogID { get; private set; }
-        public int TranCode { get; set; }
-        public string TranSourceApp { get; set; }
-        public string TranRequestInfo { get; set; }
-        public string TranDetailInfo { get; set; }
-        public string TranResponseInfo { get; set; }
-        public EnumStatusLog TranStatus { get; set; }
+        public DateTime tranrealdate { get; set; }
+        public string tranlogid { get; set; }
+        public int trancode { get; set; }
+        public string transourceapp { get; set; }
+        public string tranrequestinfo { get; set; }
+        public string trandetailinfo { get; set; }
+        public string tranresponseinfo { get; set; }
+        public EnumStatusLog transtatus { get; set; }
+
+        public LogTransaction()
+        {
+            
+        }
 
         public LogTransaction(DateTime date, int code)
         {
-            TranCode = code;
-            TranRealDate = date;
-            TranStatus = EnumStatusLog.PENDING;
-            TranLogID = Guid.NewGuid();
+            trancode = code;
+            tranrealdate = date;
+            transtatus = EnumStatusLog.PENDING;
+            tranlogid = Guid.NewGuid().ToString();
         }
 
 
