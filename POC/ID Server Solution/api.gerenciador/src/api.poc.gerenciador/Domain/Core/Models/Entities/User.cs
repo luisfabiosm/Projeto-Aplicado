@@ -13,6 +13,8 @@ namespace Domain.Core.Models.Entities
         public string email { get; set; }
         public string identityuserinfo { get; set; }
 
+        
+
     }
 
 

@@ -19,6 +19,6 @@ namespace Domain.Core.Ports.Outbound
 
         ValueTask<Models.Entities.Client> AddNewClient(Models.Entities.Client client);
 
-       // ValueTask<Models.Entities.Client> GetClient(string realm, string clientid);
+        ValueTask<Models.Entities.Client> GetClient(string realm, string clientid);
     }
 }

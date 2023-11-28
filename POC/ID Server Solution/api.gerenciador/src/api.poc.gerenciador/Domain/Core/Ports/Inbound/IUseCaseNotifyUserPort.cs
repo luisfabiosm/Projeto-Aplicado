@@ -1,6 +1,5 @@
 ﻿using Domain.Core.Base;
-using Domain.UseCases.ClientApplication.NotifyClientApp;
-using Domain.UseCases.Users.NotifyUser;
+using Domain.UseCases.Notification.NotifyUser;
 
 namespace Domain.Core.Ports.Inbound
 {

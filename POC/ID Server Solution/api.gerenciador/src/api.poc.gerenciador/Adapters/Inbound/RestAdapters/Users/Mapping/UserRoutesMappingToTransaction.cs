@@ -1,9 +1,10 @@
 ﻿
+using Adapters.Inbound.RestAdapters.Notification.VM;
 using Adapters.Inbound.RestAdapters.Users.VM;
+using Domain.UseCases.Notification.NotifyUser;
 using Domain.UseCases.Users.CreateUser;
 using Domain.UseCases.Users.GetUser;
 using Domain.UseCases.Users.ListUsers;
-using Domain.UseCases.Users.NotifyUser;
 
 namespace Adapters.Inbound.RestAdapters.Users.Mapping
 {
@@ -32,18 +33,7 @@ namespace Adapters.Inbound.RestAdapters.Users.Mapping
 
         }
 
-        public static TransactionNotifyUser ToTransactionNotifyUser(NotifyUserRequest request)
-        {
-
-            return new TransactionNotifyUser
-            {
-                Realm = request.Realm,
-                Username = request.Username,
-                ClientId = request.ClientId,
-
-            };
-
-        }
+       
 
         public static TransactionCreateUser ToTransactionCreateUser(CreateUserRequest request)
         {

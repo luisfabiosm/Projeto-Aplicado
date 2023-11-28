@@ -151,10 +151,25 @@ namespace Adapters.Outbound.DBAdapters
             return user;
         }
 
-        //public ValueTask<Client> GetClient(string realm, string clientid)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async ValueTask<Client> GetClient(string realm, string clientid)
+        {
+
+
+            string commandSQL = "SELECT * FROM Client WHERE realm = @realm AND clientid = @clientid AND IsActive = true";
+
+            var queryArgs = new
+            {
+                realm = realm,
+                clientid = clientid,
+            };
+
+            var client = await _session.QueryFirstOrDefaultAsync<Domain.Core.Models.Entities.Client>(commandSQL, queryArgs);
+
+            return client;
+
+        }
+
+   
     }
 
 

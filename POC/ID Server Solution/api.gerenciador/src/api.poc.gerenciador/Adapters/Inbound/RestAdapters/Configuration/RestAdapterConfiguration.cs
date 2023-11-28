@@ -1,6 +1,7 @@
 ﻿
 
 using Adapters.Inbound.RestAdapters.ClientApplication.Routes;
+using Adapters.Inbound.RestAdapters.Notification.Route;
 using Adapters.Inbound.RestAdapters.SecurityDomain.Routes;
 using Adapters.Inbound.RestAdapters.Users.Routes;
 

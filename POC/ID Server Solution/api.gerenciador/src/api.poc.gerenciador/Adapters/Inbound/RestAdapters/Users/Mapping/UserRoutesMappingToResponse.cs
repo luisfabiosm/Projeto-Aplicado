@@ -1,4 +1,5 @@
 ﻿using Adapters.Inbound.RestAdapters.ClientApplication.VM;
+using Adapters.Inbound.RestAdapters.Notification.VM;
 using Adapters.Inbound.RestAdapters.Users.VM;
 using Domain.Core.Models.Entities;
 using Domain.Core.Models.KeycloakAdminAPI;

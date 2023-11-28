@@ -1,5 +1,5 @@
 ﻿using Domain.Core.Base;
-using Domain.UseCases.ClientApplication.NotifyClientApp;
+using Domain.UseCases.Notification.NotifyClientApp;
 using Domain.UseCases.SecurityDomain.AddSecurityDomain;
 
 namespace Domain.Core.Ports.Inbound
