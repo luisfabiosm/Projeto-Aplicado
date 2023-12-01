@@ -17,40 +17,46 @@ namespace Domain.UseCases.GetUserAuthorization
         public async Task<BaseReturn> ExecuteTransaction(TransactionGetAuthorization transaction)
         {
             try
-            {
-                transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog);
+            {             
 
-                var operatorret = await UseCaseValidation(transaction);
-                if (operatorret is null)
-                    return handleReturn(new Exception("User e Secret não registrados ou inativos."));
+                transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
 
-                var tokenret = await _identityService.ExecuteGetToken(operatorret.Credentials);
 
-                var updateret = await _repo.UpdateAuthenticationInfo(JsonConvert.DeserializeObject<TokenInfo>(tokenret.ToString()),
-                                                                    transaction.UserRequest,
-                                                                    transaction.SecretRequest);
+                //var operatorret = await UseCaseValidation(transaction);
+                //if (operatorret is null)
+                //    return handleReturn(new Exception("User e Secret não registrados ou inativos."));
 
-                if (!updateret)
-                    return handleReturn(new Exception("Erro na atualização de retorno da geração do token."));
+
+                var _operator = new AuthCredentials(transaction);
+
+                var tokenret = await _identityService.ExecuteGetToken(_operator);
+
+                //var updateret = await _repo.UpdateAuthenticationInfo(JsonConvert.DeserializeObject<TokenInfo>(tokenret.ToString()),
+                //                                                    transaction.UserRequest,
+                //                                                    transaction.SecretRequest);
+
+                //if (!updateret)
+                //    return handleReturn(new Exception("Erro na atualização de retorno da geração do token."));
 
                 return handleReturn(tokenret);
+
 
             }
             catch (Exception ex)
             {
-                transaction.TransactionLog.TranResponseInfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(ex);
                 return handleReturn(ex);
             }
             finally
             {
-                await _repo.UpdateLogTransaction(transaction.TransactionLog);
+                await _repo.UpdateLogTransaction(transaction);
             }
         }
 
-        private async Task<Operator> UseCaseValidation(TransactionGetAuthorization transaction)
-        {
-            var ret = await _repo.GetAuthenticationInfo(transaction.UserRequest, transaction.SecretRequest);
-            return ret;
-        }
+        //private async Task<Operator> UseCaseValidation(TransactionGetAuthorization transaction)
+        //{
+        //    var ret = await _repo.GetAuthenticationInfo(transaction.UserRequest, transaction.PassworRequest);
+        //    return ret;
+        //}
     }
 }

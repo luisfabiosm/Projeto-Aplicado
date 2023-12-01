@@ -1,4 +1,6 @@
-﻿namespace Domain.Core.Models.Entities
+﻿using Domain.UseCases.GetUserAuthorization;
+
+namespace Domain.Core.Models.Entities
 {
     public record AuthCredentials
     {
@@ -8,6 +10,16 @@
         public string Password { get; internal set; }
         public string Secret { get; internal set; }
         public List<string> Scopes { get; internal set; }
+
+
+        public AuthCredentials(TransactionGetAuthorization transaction)
+        {
+            this.GrantType = "password";
+            this.ClientId = transaction.ClientId;
+            this.Username = transaction.UserRequest;
+            this.Password = transaction.PassworRequest;
+
+        }
 
         ~AuthCredentials()
         {

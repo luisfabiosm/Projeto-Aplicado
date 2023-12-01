@@ -1,8 +1,10 @@
-﻿namespace Domain.Core.Ports.Outbound
+﻿using Domain.Core.Base;
+
+namespace Domain.Core.Ports.Outbound
 {
     public interface INotifyServicePort
     {
 
-        Task<string> SendEmail(string emailaccount, string subject, string information);
+        Task<BaseReturn> SendEmail(string emailaccount, string subject, string information);
     }
 }

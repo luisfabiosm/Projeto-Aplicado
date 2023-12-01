@@ -19,7 +19,9 @@ namespace Domain.UseCases.GetUserAuthorization
         }
 
         private string _userrequest;
-        private string _secretrequest;
+        private string _passwordrequest;
+        private string _clientid;
+        private string _realm;
         private AuthCredentials _credentials { get; set; }
 
         public string UserRequest   // property
@@ -29,30 +31,42 @@ namespace Domain.UseCases.GetUserAuthorization
             {
 
                 _userrequest = value;
-                TransactionLog.TranDetailInfo += $" UserRequest:{_userrequest}";
+                TransactionLog.trandetailinfo += $" UserRequest:{_userrequest}";
             }
         }
 
-        public string SecretRequest   // property
+        public string Realm   // property
         {
-            get { return _secretrequest; }
+            get { return _realm; }
             set
             {
 
-                _secretrequest = value;
-                TransactionLog.TranDetailInfo += $" SecretRequest:{_secretrequest.Substring(0, 4)} + {_secretrequest.PadLeft(4)} ";
+                _realm = value;
+                TransactionLog.trandetailinfo += $" Realm:{_realm}";
             }
         }
 
-        public AuthCredentials Credentials   // property
+        public string ClientId   // property
         {
-            get { return _credentials; }
+            get { return _clientid; }
             set
             {
 
-                _credentials = value;
-                TransactionLog.TranDetailInfo += $" AuthCredentials:{JsonConvert.SerializeObject(_credentials)} ";
+                _clientid = value;
+                TransactionLog.trandetailinfo += $" ClientId:{_clientid}";
             }
         }
+
+        public string PassworRequest   // property
+        {
+            get { return _passwordrequest; }
+            set
+            {
+
+                _passwordrequest = value;
+                TransactionLog.trandetailinfo += $" PassworRequest:{_passwordrequest.Substring(0, 4)} + {_passwordrequest.PadLeft(4)} ";
+            }
+        }
+
     }
 }

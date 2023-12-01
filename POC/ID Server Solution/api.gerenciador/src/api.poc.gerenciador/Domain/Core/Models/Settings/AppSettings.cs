@@ -7,6 +7,8 @@ namespace Domain.Core.Models.Settings
         public ConnectionSettings DBSettings { get; set; }
 
         public IdentityServerSettings IdentitySettings {get;set;}
-        
+
+        public NotifySettings EmailSettings { get; set; }
+
     }
 }

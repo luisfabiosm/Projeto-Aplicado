@@ -15,20 +15,20 @@ namespace Adapters.Inbound.RestAdapters.Users.Mapping
         }
 
 
-        public static IResult ToTransactionNotifyUserResponse(dynamic useCaseResponse)
-        {
-            var _useCaseResponse = (NotifyUserResponse)useCaseResponse;
+        //public static IResult ToTransactionNotifyUserResponse(dynamic useCaseResponse)
+        //{
+        //    var _useCaseResponse = (NotifyUserResponse)useCaseResponse;
 
-            return ReturnMapping(
-            new NotifyUserResponse
-            {
-                NotificationId = _useCaseResponse.NotificationId,
-                NotificationDate =  DateTime.UtcNow,
+        //    return ReturnMapping(
+        //    new NotifyUserResponse
+        //    {
+        //        NotificationId = _useCaseResponse.NotificationId,
+        //        NotificationDate =  DateTime.UtcNow,
 
-            }
-            );
+        //    }
+        //    );
 
-        }
+        //}
 
       
 

@@ -12,8 +12,11 @@ namespace Adapters.Inbound.RestAdapters.Mapping
             return new TransactionGetAuthorization
                 {
                     TransactionCode = 100,
-                    UserRequest = request.user,
-                    SecretRequest = request.secret,
+                    UserRequest = request.username,
+                    PassworRequest = request.password,
+                    ClientId = request.clientid,
+                    Realm = request.realm,
+
                 };
 
         }
