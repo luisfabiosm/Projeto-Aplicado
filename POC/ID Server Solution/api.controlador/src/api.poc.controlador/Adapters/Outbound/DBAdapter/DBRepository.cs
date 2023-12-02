@@ -1,14 +1,10 @@
 ﻿using Dapper;
 using Domain.Core.Base;
 using Domain.Core.Models.Entities;
-using Domain.Core.Models.VO;
 using Domain.Core.Ports.Outbound;
 using Keycloak.AuthServices.Sdk.Admin.Models;
-using Microsoft.AspNetCore.DataProtection;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Npgsql;
-using System.Net.Sockets;
 
 namespace Adapters.Outbound.DBAdapter
 {
@@ -30,34 +26,34 @@ namespace Adapters.Outbound.DBAdapter
             string commandSQL = $"SELECT * FROM userauthentication where User = '{user}' AND Password = '{secret}'";
             return await _session.QueryFirstOrDefaultAsync<Operator>(commandSQL);
         }
-  
 
-        public async ValueTask<bool> UpdateAuthenticationInfo(TokenInfo token, string user, string secret)
-        {
 
-                string commandSQL = $@" UPDATE Operator SET ExpirationSeconds       = @ExpirationSeconds, 
-                                                                KeycloakSerializedInfo  = @KeycloakSerializedInfo,
-                                                                ForceChange             = {false},
-                                                                LastUpdate              = @LastUpdate
-                                                          WHERE User                    = @User 
-                                                            AND Secret                  = @Secret ";
+        //public async ValueTask<bool> UpdateAuthenticationInfo(TokenInfo token, string user, string secret)
+        //{
 
-                var _updateArgs = new
-                {
-                    ExpirationSeconds = token.ExpiresIn,
-                    KeycloakSerializedInfo = JsonConvert.SerializeObject(token),
-                    ForceChange = false,
-                    LastUpdate = DateTime.UtcNow,
-                    // RefreshToken = game.AverageDuration,
-                    User = user,
-                    Secret = secret
-                };
+        //    string commandSQL = $@" UPDATE Operator SET ExpirationSeconds       = @ExpirationSeconds, 
+        //                                                        KeycloakSerializedInfo  = @KeycloakSerializedInfo,
+        //                                                        ForceChange             = {false},
+        //                                                        LastUpdate              = @LastUpdate
+        //                                                  WHERE User                    = @User 
+        //                                                    AND Secret                  = @Secret ";
 
-                var ret = await _session.ExecuteAsync(commandSQL, _updateArgs);
-                return ret > 0 ? true : false;
-            
- 
-        }
+        //    var _updateArgs = new
+        //    {
+        //        ExpirationSeconds = token.ExpiresIn,
+        //        KeycloakSerializedInfo = JsonConvert.SerializeObject(token),
+        //        ForceChange = false,
+        //        LastUpdate = DateTime.UtcNow,
+        //        // RefreshToken = game.AverageDuration,
+        //        User = user,
+        //        Secret = secret
+        //    };
+
+        //    var ret = await _session.ExecuteAsync(commandSQL, _updateArgs);
+        //    return ret > 0 ? true : false;
+
+
+        //}
 
 
         public async ValueTask<User> GetUser(string realm, string clientid, string username)

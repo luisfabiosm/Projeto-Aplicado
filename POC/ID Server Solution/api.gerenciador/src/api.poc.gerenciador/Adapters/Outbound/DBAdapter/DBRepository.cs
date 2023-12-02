@@ -6,8 +6,6 @@ using Domain.Core.Ports.Outbound;
 using Domain.UseCases.Users.CreateUser;
 using Newtonsoft.Json;
 using Npgsql;
-using NpgsqlTypes;
-using System.Transactions;
 
 namespace Adapters.Outbound.DBAdapter
 {
@@ -150,7 +148,7 @@ namespace Adapters.Outbound.DBAdapter
             return await _session.QueryFirstOrDefaultAsync<User>(commandSQL);
         }
 
-      
+
         public async ValueTask<Client> GetClient(string realm, string clientid)
         {
 

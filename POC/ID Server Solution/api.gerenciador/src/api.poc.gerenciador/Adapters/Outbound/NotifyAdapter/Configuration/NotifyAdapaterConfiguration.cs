@@ -1,5 +1,4 @@
-﻿using Adapters.Outbound.IdentityAdapter;
-using Domain.Core.Models.Settings;
+﻿using Domain.Core.Models.Settings;
 using Domain.Core.Ports.Outbound;
 
 namespace Adapters.Outbound.NotifyAdapter.Configuration

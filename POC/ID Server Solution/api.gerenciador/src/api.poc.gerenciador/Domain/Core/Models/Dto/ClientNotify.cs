@@ -2,8 +2,8 @@
 
 namespace Domain.Core.Models.Dto
 {
-  
-    public record ClientNotify 
+
+    public record ClientNotify
     {
         public string Realm { get; init; }
 

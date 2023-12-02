@@ -3,21 +3,21 @@ using Domain.UseCases.GetUserAuthorization;
 
 namespace Adapters.Inbound.RestAdapters.Mapping
 {
-    public static  class MappingToTransaction
+    public static class MappingToTransaction
     {
 
         public static TransactionGetAuthorization ToTransactionGetAuthorization(GetAuthorizationRequest request)
         {
 
-            return new TransactionGetAuthorization
-                {
-                    TransactionCode = 100,
-                    UserRequest = request.username,
-                    PassworRequest = request.password,
-                    ClientId = request.clientid,
-                    Realm = request.realm,
+            return new TransactionGetAuthorization(DateTime.UtcNow)
+            {
+                TransactionCode = 101,
+                UserRequest = request.username,
+                PassworRequest = request.password,
+                ClientId = request.clientid,
+                Realm = request.realm,
 
-                };
+            };
 
         }
 

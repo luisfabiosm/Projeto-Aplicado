@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Domain.Core.Models.Dto
 {
-    public record UserNotify 
+    public record UserNotify
     {
         [JsonPropertyName("user")]
         public string User { get; internal set; }
@@ -14,7 +13,7 @@ namespace Domain.Core.Models.Dto
 
         public UserNotify()
         {
-            
+
         }
         public UserNotify(string user, string secret)
         {

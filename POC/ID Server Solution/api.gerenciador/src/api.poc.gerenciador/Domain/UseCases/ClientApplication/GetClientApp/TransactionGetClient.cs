@@ -1,5 +1,4 @@
 ﻿using Domain.Core.Base;
-using Newtonsoft.Json;
 
 namespace Domain.UseCases.ClientApplication.GetClientApp
 {

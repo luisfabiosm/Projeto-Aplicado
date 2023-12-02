@@ -4,12 +4,12 @@ using Domain.Core.Models.Entities;
 
 namespace Adapters.Inbound.RestAdapters.ClientApplication.VM
 {
-    public record ClientResponse :Client
+    public record ClientResponse : Client
     {
 
-       
 
-        public ClientResponse(Client client )
+
+        public ClientResponse(Client client)
         {
 
             realm = client.realm;
@@ -21,7 +21,7 @@ namespace Adapters.Inbound.RestAdapters.ClientApplication.VM
             isactive = client.isactive;
             email = client.email;
             appidentityconfiguration = client.appidentityconfiguration;
-            
+
         }
 
     }

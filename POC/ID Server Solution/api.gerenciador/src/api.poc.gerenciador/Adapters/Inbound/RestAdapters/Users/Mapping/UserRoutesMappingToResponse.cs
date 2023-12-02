@@ -1,7 +1,4 @@
-﻿using Adapters.Inbound.RestAdapters.ClientApplication.VM;
-using Adapters.Inbound.RestAdapters.Notification.VM;
-using Adapters.Inbound.RestAdapters.Users.VM;
-using Domain.Core.Models.Entities;
+﻿using Adapters.Inbound.RestAdapters.Users.VM;
 using Domain.Core.Models.KeycloakAdminAPI;
 
 
@@ -30,7 +27,7 @@ namespace Adapters.Inbound.RestAdapters.Users.Mapping
 
         //}
 
-      
+
 
         public static IResult ToTransactionGetUserResponse(dynamic useCaseResponse)
         {

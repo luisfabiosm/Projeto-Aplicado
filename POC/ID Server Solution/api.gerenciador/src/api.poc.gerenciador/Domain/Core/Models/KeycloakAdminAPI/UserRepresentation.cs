@@ -1,7 +1,6 @@
 ﻿namespace Domain.Core.Models.KeycloakAdminAPI
 {
     using Newtonsoft.Json;
-    using System;
     using System.Collections.Generic;
 
     public record UserRepresentation
@@ -54,19 +53,19 @@
         [JsonProperty("requiredActions")]
         public List<string> RequiredActions { get; init; }
 
-       [JsonProperty("realmRoles")]
+        [JsonProperty("realmRoles")]
         public List<string> RealmRoles { get; init; }
 
         [JsonProperty("clientRoles")]
         public Dictionary<string, List<string>> ClientRoles { get; init; }
-    
+
         [JsonProperty("notBefore")]
         public int? NotBefore { get; init; }
 
         [JsonProperty("applicationRoles")]
         public Dictionary<string, List<string>> ApplicationRoles { get; init; }
 
-       
+
         [JsonProperty("groups")]
         public List<string> Groups { get; init; }
 
@@ -77,7 +76,7 @@
         public UserProfileMetadata UserProfileMetadata { get; init; }
     }
 
-    
+
     public record UserProfileMetadata
     {
         [JsonProperty("realFirstName")]

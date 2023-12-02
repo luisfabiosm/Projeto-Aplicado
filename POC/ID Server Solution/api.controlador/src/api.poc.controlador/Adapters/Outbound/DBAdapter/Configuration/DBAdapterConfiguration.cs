@@ -1,7 +1,5 @@
 ﻿using Domain.Core.Models.Settings;
 using Domain.Core.Ports.Outbound;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Adapters.Outbound.DBAdapter.Configuration
 {

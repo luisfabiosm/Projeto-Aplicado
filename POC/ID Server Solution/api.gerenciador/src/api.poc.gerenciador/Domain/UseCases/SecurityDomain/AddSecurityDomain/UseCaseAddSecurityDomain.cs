@@ -5,25 +5,25 @@ using Newtonsoft.Json;
 
 namespace Domain.UseCases.SecurityDomain.AddSecurityDomain
 {
-  
-    public class UseCaseAddSecurityDomain : BaseUseCase , IUseCaseAddSecurityDomainPort
+
+    public class UseCaseAddSecurityDomain : BaseUseCase, IUseCaseAddSecurityDomainPort
     {
 
         public UseCaseAddSecurityDomain(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            
-            
+
+
         }
 
         public async Task<BaseReturn> ExecuteTransaction(TransactionAddSecurityDomain transaction)
         {
-        
+
             try
             {
                 using (var _request = new CreateRealmRequest(transaction.Realm))
                 {
 
-                    transaction.TransactionLog  = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
+                    transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
 
                     var _retRealm = await _identityService.CreateRealmAsync(_request);
                     transaction.TransactionLog.tranresponseinfo = _retRealm;

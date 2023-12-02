@@ -11,7 +11,7 @@ namespace Adapters.Inbound.RestAdapters.Routes
 
         public static void AddGetAuthorizationEndpoint(this WebApplication app)
         {
-            app.MapPost("controlador/v1/authorizacao", ProcRequest)
+            app.MapPost("controlador/v1/authtoken", ProcRequest)
              .WithTags("Get Authorization")
              .Accepts<GetAuthorizationRequest>("application/json")
              .Produces<GetAuthorizationResponse>(StatusCodes.Status200OK)
@@ -23,8 +23,6 @@ namespace Adapters.Inbound.RestAdapters.Routes
         {
             try
             {
-      
-
                 var response = await useCase.ExecuteTransaction(MappingToTransaction.ToTransactionGetAuthorization(request));
                 return response.GetResponse();
             }

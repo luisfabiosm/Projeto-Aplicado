@@ -1,9 +1,7 @@
 ﻿using Domain.Core.Base;
-using Domain.Core.Enums;
 using Domain.Core.Models.Entities;
 using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.UseCases.Users.CreateUser;
-using Keycloak.Net.Models.Clients;
 
 namespace Domain.Core.Ports.Outbound
 {

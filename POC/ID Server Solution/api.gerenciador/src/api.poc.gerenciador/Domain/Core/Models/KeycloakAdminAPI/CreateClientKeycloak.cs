@@ -48,7 +48,7 @@ namespace Domain.Core.Models.KeycloakAdminAPI
 
         public void Dispose()
         {
-            
+
         }
     }
 }

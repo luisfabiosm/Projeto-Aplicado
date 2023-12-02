@@ -16,7 +16,7 @@ namespace Domain.Core.Models.Entities
 
         public LogTransaction()
         {
-            
+
         }
 
         public LogTransaction(DateTime date, int code)

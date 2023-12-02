@@ -1,6 +1,5 @@
 ﻿
 using Domain.Core.Models.KeycloakAdminAPI;
-using Domain.UseCases.ClientApplication.RegisterClientApp;
 
 namespace Domain.Core.Ports.Outbound
 {

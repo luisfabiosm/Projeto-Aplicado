@@ -1,5 +1,4 @@
-﻿
-using Domain.Core.Models.Settings;
+﻿using Domain.Core.Models.Settings;
 using Domain.Core.Ports.Outbound;
 using Npgsql;
 
@@ -14,11 +13,14 @@ namespace Adapters.Outbound.DBAdapter
         public DBConnection(ConnectionSettings settings)
         {
             _connection = new NpgsqlConnection(settings.GetConnectionString());
+            _connection.Open();
         }
 
         public NpgsqlConnection Connection()
         {
-            _connection.Open();
+            if (_connection.State != System.Data.ConnectionState.Open)
+                _connection.Open();
+
             return _connection;
         }
 

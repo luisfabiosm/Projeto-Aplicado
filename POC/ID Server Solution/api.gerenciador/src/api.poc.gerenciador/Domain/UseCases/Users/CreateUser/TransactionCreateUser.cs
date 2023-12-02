@@ -13,7 +13,7 @@ namespace Domain.UseCases.Users.CreateUser
 
         }
 
-     
+
         public TransactionCreateUser(DateTime date, int code = 750) : base(date, code)
         {
             TransactionCode = 750;
@@ -33,7 +33,7 @@ namespace Domain.UseCases.Users.CreateUser
         public string LastName { get; init; }
         public UserCredentials[] Credentials { get; init; }
 
-       
+
         //public RegistrationUser(string realm, string clientName, string clientid)
         //{
         //    Realm = realm;
@@ -44,5 +44,5 @@ namespace Domain.UseCases.Users.CreateUser
 
     }
 
-  
+
 }

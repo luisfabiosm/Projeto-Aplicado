@@ -1,6 +1,5 @@
 ﻿using Adapters.Inbound.RestAdapters.ClientApplication.Mapping;
 using Adapters.Inbound.RestAdapters.ClientApplication.VM;
-using Adapters.Inbound.RestAdapters.SecurityDomain.VM;
 using Domain.Core.Base;
 using Domain.Core.Enums;
 using Domain.Core.Ports.Inbound;
@@ -32,7 +31,7 @@ namespace Adapters.Inbound.RestAdapters.ClientApplication.Routes
                 return new BaseReturn(ex, EnumReturnType.SYSTEM).GetResponse();
             }
         }
-          
+
 
 
     }

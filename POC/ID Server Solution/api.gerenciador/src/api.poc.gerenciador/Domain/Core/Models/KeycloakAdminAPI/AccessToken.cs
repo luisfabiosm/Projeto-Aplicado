@@ -27,7 +27,7 @@ namespace Domain.Core.Models.KeycloakAdminAPI
         {
             get { return _expirationDate; }
         }
-                                    
+
 
 
         public void NewExpirationDate()

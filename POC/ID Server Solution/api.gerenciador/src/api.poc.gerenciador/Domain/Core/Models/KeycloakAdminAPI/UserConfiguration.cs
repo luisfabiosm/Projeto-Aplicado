@@ -1,9 +1,8 @@
-﻿using Keycloak.Net.Models.Users;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 namespace Domain.Core.Models.KeycloakAdminAPI
 {
 
-   
+
 
     public record UserConfiguration
     {

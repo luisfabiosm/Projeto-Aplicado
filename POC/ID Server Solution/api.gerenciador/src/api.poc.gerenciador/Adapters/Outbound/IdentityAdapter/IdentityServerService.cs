@@ -1,11 +1,6 @@
 ﻿using Adapters.Outbound.IdentityAdapter.KeycloakPorts;
 using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Outbound;
-using Domain.UseCases.Users.CreateUser;
-using Keycloak.Net.Models.RealmsAdmin;
-using Keycloak.Net.Models.Root;
-using Refit;
-using System;
 
 namespace Adapters.Outbound.IdentityAdapter
 {
@@ -29,13 +24,13 @@ namespace Adapters.Outbound.IdentityAdapter
 
         private string GetToken(string realm = "")
         {
-           return "Bearer " + _connection.GetAuthToken(realm);
+            return "Bearer " + _connection.GetAuthToken(realm);
         }
 
 
         public async Task<string> CreateRealmAsync(CreateRealmRequest request)
         {
-            
+
             try
             {
                 _adminAuthHeaders = GetToken("");
@@ -54,7 +49,7 @@ namespace Adapters.Outbound.IdentityAdapter
 
                 var _newUser = new CreateUserKeycloak
                 {
-                    
+
                     Username = "admin",
                     FirstName = "admin user",
                     Credentials = new UserCredentials[1] { _credentials },
@@ -82,7 +77,7 @@ namespace Adapters.Outbound.IdentityAdapter
 
                 //2 criar client
                 var response = await _keycloakApi.CreateClient(realm, _adminAuthHeaders, request);
-                return  GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "clients/");
+                return GetIdResponse(response.Headers.GetValues("Location").FirstOrDefault(), "clients/");
 
             }
             catch (Exception ex)
@@ -199,7 +194,7 @@ namespace Adapters.Outbound.IdentityAdapter
 
         public async Task<string> GetClientById(string realm, string Id)
         {
-           try
+            try
             {
                 _adminAuthHeaders = GetToken();
                 var response = await _keycloakApi.GetClientInstallationById(realm, Id, _adminAuthHeaders);
@@ -233,7 +228,7 @@ namespace Adapters.Outbound.IdentityAdapter
         public async Task<ClientConfiguration> GetClientByClienId(string realm, string clientId)
         {
             try
-            {             
+            {
                 _adminAuthHeaders = GetToken();
                 var response = await _keycloakApi.GetClients(realm, _adminAuthHeaders);
 
@@ -316,8 +311,8 @@ namespace Adapters.Outbound.IdentityAdapter
 
             var _validToken = _keycloakApi.GetAccessToken(realm, _requestToken).Result;
 
-          return  $"Bearer {_validToken.access_token}";
-        
+            return $"Bearer {_validToken.access_token}";
+
         }
     }
 

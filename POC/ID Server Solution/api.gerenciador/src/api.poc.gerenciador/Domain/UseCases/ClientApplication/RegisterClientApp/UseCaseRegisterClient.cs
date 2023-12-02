@@ -1,11 +1,9 @@
 ﻿using Adapters.Inbound.RestAdapters.ClientApplication.VM;
-using Adapters.Inbound.RestAdapters.Users.VM;
 using Domain.Core.Base;
 using Domain.Core.Models.Entities;
 using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Inbound;
 using Newtonsoft.Json;
-using System.Transactions;
 
 namespace Domain.UseCases.ClientApplication.RegisterClientApp
 {
@@ -52,7 +50,7 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
                     var _retAdd = _identityService.AddClientScopeAsDefaultToClient(transaction.ClientInfo.Realm, transaction.ClientInfo.ClientId, _retcliscopeId);
 
                     var _retClientConfig = _identityService.GetClientById(transaction.ClientInfo.Realm, _retcliId);
-                    
+
                     var _client = new Client
                     {
                         clientid = transaction.ClientInfo.ClientId,

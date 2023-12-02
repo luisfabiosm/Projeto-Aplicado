@@ -1,5 +1,4 @@
-﻿using Npgsql.Replication.PgOutput.Messages;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Domain.Core.Models.KeycloakAdminAPI
 {

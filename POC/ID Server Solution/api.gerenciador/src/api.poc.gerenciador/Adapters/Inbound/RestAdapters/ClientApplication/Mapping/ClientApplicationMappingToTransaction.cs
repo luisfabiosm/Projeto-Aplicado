@@ -32,7 +32,7 @@ namespace Adapters.Inbound.RestAdapters.ClientApplication.Mapping
             {
                 Realm = realm,
                 ClientId = clientId,
-                
+
             };
 
         }

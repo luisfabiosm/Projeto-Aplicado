@@ -1,7 +1,4 @@
-﻿using Domain.UseCases.ClientApplication.RegisterClientApp;
-using Domain.UseCases.Users.CreateUser;
-using Keycloak.Net.Models.Root;
-using Keycloak.Net.Models.Users;
+﻿using Domain.UseCases.Users.CreateUser;
 using System.Text.Json.Serialization;
 
 namespace Domain.Core.Models.KeycloakAdminAPI
@@ -28,7 +25,7 @@ namespace Domain.Core.Models.KeycloakAdminAPI
 
         public CreateUserKeycloak()
         {
-            
+
         }
 
         public CreateUserKeycloak(TransactionCreateUser transaction)
@@ -40,7 +37,7 @@ namespace Domain.Core.Models.KeycloakAdminAPI
 
             Credentials = new UserCredentials[1];
             Credentials[0] = transaction.UserInfo.Credentials[0];
-           
+
         }
 
         public void Dispose()

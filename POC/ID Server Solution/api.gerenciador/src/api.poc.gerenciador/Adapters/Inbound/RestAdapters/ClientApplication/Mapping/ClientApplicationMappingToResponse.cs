@@ -1,8 +1,4 @@
-﻿using Adapters.Inbound.RestAdapters.ClientApplication.VM;
-using Domain.Core.Models.KeycloakAdminAPI;
-
-
-namespace Adapters.Inbound.RestAdapters.ClientApplication.Mapping
+﻿namespace Adapters.Inbound.RestAdapters.ClientApplication.Mapping
 {
     public static class ClientApplicationMappingToResponse
     {

@@ -1,7 +1,4 @@
-﻿using Domain.Core.Models.KeycloakAdminAPI;
-using System.Text.Json.Serialization;
-
-namespace Adapters.Inbound.RestAdapters.Users.VM
+﻿namespace Adapters.Inbound.RestAdapters.Users.VM
 {
     public record CreateUserRequest
     {

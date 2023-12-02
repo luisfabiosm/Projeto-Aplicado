@@ -31,7 +31,7 @@ namespace Domain.UseCases.Notification.NotifyUser
                 transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(_userInfo);
                 transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.CONFIRMED;
 
-                return handleReturn( new NotifyUserResponse(_userInfo));
+                return handleReturn(new NotifyUserResponse(_userInfo));
             }
             catch (Exception ex)
             {

@@ -1,10 +1,12 @@
 ﻿using Domain.Core.Models.Entities;
-using Domain.Core.Models.VO;
+using Domain.Core.Models.Keycloak;
 
 namespace Domain.Core.Ports.Outbound
 {
     public interface IIdentityServerServicePort
     {
-        Task<TokenInfo> ExecuteGetToken(AuthCredentials credentilals);
+        Task<AccessToken> GetAuthToken(AuthCredentials credentilals);
+
+
     }
 }

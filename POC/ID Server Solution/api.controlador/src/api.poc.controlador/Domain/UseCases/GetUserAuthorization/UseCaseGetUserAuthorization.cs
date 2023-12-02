@@ -1,6 +1,5 @@
 ﻿using Domain.Core.Base;
 using Domain.Core.Models.Entities;
-using Domain.Core.Models.VO;
 using Domain.Core.Ports.Inbound;
 using Newtonsoft.Json;
 
@@ -17,7 +16,7 @@ namespace Domain.UseCases.GetUserAuthorization
         public async Task<BaseReturn> ExecuteTransaction(TransactionGetAuthorization transaction)
         {
             try
-            {             
+            {
 
                 transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
 
@@ -29,7 +28,7 @@ namespace Domain.UseCases.GetUserAuthorization
 
                 var _operator = new AuthCredentials(transaction);
 
-                var tokenret = await _identityService.ExecuteGetToken(_operator);
+                var tokenret = await _identityService.GetAuthToken(_operator);
 
                 //var updateret = await _repo.UpdateAuthenticationInfo(JsonConvert.DeserializeObject<TokenInfo>(tokenret.ToString()),
                 //                                                    transaction.UserRequest,
@@ -37,6 +36,8 @@ namespace Domain.UseCases.GetUserAuthorization
 
                 //if (!updateret)
                 //    return handleReturn(new Exception("Erro na atualização de retorno da geração do token."));
+
+                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(tokenret);
 
                 return handleReturn(tokenret);
 

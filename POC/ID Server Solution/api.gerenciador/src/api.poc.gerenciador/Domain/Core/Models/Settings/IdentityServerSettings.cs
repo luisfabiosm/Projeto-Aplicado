@@ -1,8 +1,4 @@
-﻿using Domain.Core.Models.KeycloakAdminAPI;
-using System.Diagnostics.Contracts;
-using System.Text.Json.Serialization;
-
-namespace Domain.Core.Models.Settings
+﻿namespace Domain.Core.Models.Settings
 {
     public record IdentityServerSettings
     {

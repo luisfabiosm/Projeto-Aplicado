@@ -8,7 +8,7 @@ namespace Adapters.Outbound.NotifyAdapter
 
         public NotifyServicePort()
         {
-                
+
         }
         public async Task<BaseReturn> SendEmail(string emailaccount, string subject, string information)
         {

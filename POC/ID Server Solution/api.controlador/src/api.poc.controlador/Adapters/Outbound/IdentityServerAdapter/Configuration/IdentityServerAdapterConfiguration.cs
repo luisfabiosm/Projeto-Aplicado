@@ -1,4 +1,4 @@
-﻿using Adapters.Outbound.DBAdapter;
+﻿using Adapters.Outbound.IdentityAdapter;
 using Domain.Core.Models.Settings;
 using Domain.Core.Ports.Outbound;
 
@@ -8,9 +8,13 @@ namespace Adapters.Outbound.IdentityServerAdapter.Configuration
     {
         public static IServiceCollection AddIdentityServerAdapter(this IServiceCollection services, IdentityServerSettings settings)
         {
-            
 
-            services.AddTransient<IIdentityServerServicePort, IdentityServerService>();
+            services.AddSingleton<IIdentityConnection>(options =>
+            {
+                return new IdentityConnection(settings);
+            });
+
+            services.AddSingleton<IIdentityServerServicePort, IdentityServerService>();
 
             return services;
         }

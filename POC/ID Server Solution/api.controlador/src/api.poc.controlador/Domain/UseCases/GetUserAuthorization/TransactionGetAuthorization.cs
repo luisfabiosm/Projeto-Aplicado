@@ -1,18 +1,16 @@
 ﻿using Domain.Core.Base;
-using Domain.Core.Enums;
 using Domain.Core.Models.Entities;
-using Newtonsoft.Json;
 
 namespace Domain.UseCases.GetUserAuthorization
 {
     public record TransactionGetAuthorization : BaseTransaction
     {
-        public TransactionGetAuthorization()
-        {
+        //public TransactionGetAuthorization()
+        //{
 
-        }
+        //}
 
-        public TransactionGetAuthorization(DateTime date, int code) : base(date, code)
+        public TransactionGetAuthorization(DateTime date, int code=101) : base(date, code)
         {
             TransactionCode = 101;
             TransactionDate = date;
@@ -31,7 +29,7 @@ namespace Domain.UseCases.GetUserAuthorization
             {
 
                 _userrequest = value;
-                TransactionLog.trandetailinfo += $" UserRequest:{_userrequest}";
+                base.TransactionLog.trandetailinfo += $" UserRequest:{_userrequest}";
             }
         }
 

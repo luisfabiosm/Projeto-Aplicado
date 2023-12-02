@@ -1,5 +1,4 @@
 ﻿using Domain.Core.Base;
-using Newtonsoft.Json;
 
 namespace Domain.UseCases.SecurityDomain.AddSecurityDomain
 {
@@ -9,19 +8,19 @@ namespace Domain.UseCases.SecurityDomain.AddSecurityDomain
 
         public TransactionAddSecurityDomain()
         {
-            
+
         }
 
-        public TransactionAddSecurityDomain(DateTime date, int code=900) : base(date, code)
+        public TransactionAddSecurityDomain(DateTime date, int code = 900) : base(date, code)
         {
-           
+
             TransactionCode = code;
             TransactionDate = date;
         }
 
-      
 
-      
+
+
 
 
     }

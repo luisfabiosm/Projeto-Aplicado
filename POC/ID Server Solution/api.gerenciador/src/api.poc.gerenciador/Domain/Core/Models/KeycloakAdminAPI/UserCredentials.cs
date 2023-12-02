@@ -22,7 +22,7 @@ namespace Domain.Core.Models.KeycloakAdminAPI
 
         public UserCredentials()
         {
-                
+
         }
     }
 }

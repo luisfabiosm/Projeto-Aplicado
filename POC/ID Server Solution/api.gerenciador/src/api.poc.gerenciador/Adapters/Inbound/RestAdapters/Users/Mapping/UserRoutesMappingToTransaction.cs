@@ -1,7 +1,4 @@
-﻿
-using Adapters.Inbound.RestAdapters.Notification.VM;
-using Adapters.Inbound.RestAdapters.Users.VM;
-using Domain.UseCases.Notification.NotifyUser;
+﻿using Adapters.Inbound.RestAdapters.Users.VM;
 using Domain.UseCases.Users.CreateUser;
 using Domain.UseCases.Users.GetUser;
 using Domain.UseCases.Users.ListUsers;
@@ -28,12 +25,12 @@ namespace Adapters.Inbound.RestAdapters.Users.Mapping
             return new TransactionListUsers
             {
                 Realm = realm,
-  
+
             };
 
         }
 
-       
+
 
         public static TransactionCreateUser ToTransactionCreateUser(CreateUserRequest request)
         {

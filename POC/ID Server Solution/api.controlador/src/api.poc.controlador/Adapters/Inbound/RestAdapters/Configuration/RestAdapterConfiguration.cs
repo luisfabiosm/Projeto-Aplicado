@@ -23,7 +23,7 @@ namespace Adapters.Inbound.RestAdapters.Configuration
 
             //Endpoints
             app.AddGetAuthorizationEndpoint();
-    
+
         }
     }
 

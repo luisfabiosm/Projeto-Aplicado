@@ -6,8 +6,6 @@ X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlad
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\obj\Debug\net6.0\api.poc.controlador.MvcApplicationPartsAssemblyInfo.cs
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\obj\Debug\net6.0\api.poc.controlador.MvcApplicationPartsAssemblyInfo.cache
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\obj\Debug\net6.0\api.poc.controlador.sourcelink.json
-X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\bin\Debug\net6.0\Service\appsettings.Development.json
-X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\bin\Debug\net6.0\Service\appsettings.json
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\bin\Debug\net6.0\api.poc.controlador.exe
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\bin\Debug\net6.0\api.poc.controlador.deps.json
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\bin\Debug\net6.0\api.poc.controlador.runtimeconfig.json
@@ -61,3 +59,5 @@ X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlad
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\obj\Debug\net6.0\api.poc.controlador.pdb
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\obj\Debug\net6.0\api.poc.controlador.genruntimeconfig.cache
 X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\obj\Debug\net6.0\ref\api.poc.controlador.dll
+X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\bin\Debug\net6.0\appsettings.Development.json
+X:\Fabio\Particular\POS XP\Projeto-Aplicado\POC\ID Server Solution\api.controlador\src\api.poc.controlador\bin\Debug\net6.0\appsettings.json

@@ -1,4 +1,3 @@
-using Keycloak.Net;
 using Adapters.Inbound.RestAdapters.Configuration;
 using Services.Configuration;
 

@@ -1,5 +1,4 @@
-﻿using Domain.Core.Models.Dto;
-using Domain.Core.Models.KeycloakAdminAPI;
+﻿using Domain.Core.Models.KeycloakAdminAPI;
 
 namespace Adapters.Inbound.RestAdapters.Users.VM
 {

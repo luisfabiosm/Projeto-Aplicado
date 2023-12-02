@@ -1,6 +1,5 @@
 ﻿using Domain.Core.Base;
 using Domain.UseCases.ClientApplication.RegisterClientApp;
-using Domain.UseCases.SecurityDomain.AddSecurityDomain;
 
 namespace Domain.Core.Ports.Inbound
 {

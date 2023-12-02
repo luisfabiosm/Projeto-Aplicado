@@ -5,7 +5,7 @@ namespace Domain.Core.Base
     public record BaseTransaction
     {
 
-        public int TransactionCode { get;  internal set; }
+        public int TransactionCode { get; internal set; }
         public DateTime TransactionDate { get; internal set; }
         public LogTransaction TransactionLog { get; set; }
 
@@ -19,12 +19,10 @@ namespace Domain.Core.Base
             this.TransactionCode = code;
             this.TransactionDate = date;
             this.TransactionLog = new LogTransaction(date, code);
+            
         }
 
-        public BaseTransaction()
-        {
-
-        }
+  
 
 
     }

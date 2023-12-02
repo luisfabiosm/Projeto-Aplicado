@@ -14,7 +14,7 @@ namespace Domain.UseCases.Notification.NotifyUser
 
         }
 
-        public TransactionNotifyUser(DateTime date, int code=798) : base(date, code)
+        public TransactionNotifyUser(DateTime date, int code = 798) : base(date, code)
         {
             TransactionCode = 798;
             TransactionDate = date;

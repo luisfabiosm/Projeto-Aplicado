@@ -1,6 +1,5 @@
 ﻿using Domain.Core.Enums;
 using Domain.Core.Ports.Outbound;
-using System;
 
 namespace Domain.Core.Base
 {

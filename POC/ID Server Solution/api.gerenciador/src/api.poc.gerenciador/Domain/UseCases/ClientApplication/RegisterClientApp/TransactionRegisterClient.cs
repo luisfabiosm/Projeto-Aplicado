@@ -1,20 +1,18 @@
 ﻿using Domain.Core.Base;
-using Domain.Core.Models.Dto;
-using Microsoft.AspNetCore.Authentication;
 
 namespace Domain.UseCases.ClientApplication.RegisterClientApp
 {
     public record TransactionRegisterClient : BaseTransaction
     {
-   
+
         public RegistrationClient ClientInfo { get; internal set; }
 
         public TransactionRegisterClient()
         {
-                
+
         }
 
-        public TransactionRegisterClient(DateTime date, int code=700) : base(date, code)
+        public TransactionRegisterClient(DateTime date, int code = 700) : base(date, code)
         {
             TransactionCode = 700;
             TransactionDate = date;

@@ -14,8 +14,9 @@ namespace Domain.Core.Models.Settings
         public string GetConnectionString()
         {
             var crypt = new Crypt();
-            string _Password = crypt.DecryptDESFunction(Password, "zuu|@??(0ntr0|");
-            return $"Data Source={Cluster};Initial Catalog={Database};Persist Security Info=True;User ID={Username};Password={_Password}";
+            string _Password = Password;  //crypt.DecryptDESFunction(Password, "zuu|@??(0ntr0|");
+            //return $"Data Source={Cluster};Initial Catalog={Database};Persist Security Info=True;User ID={Username};Password={_Password}";
+            return $"Host={Cluster};Username={Username};Password={_Password};Database={Database}";
         }
 
         ~ConnectionSettings()

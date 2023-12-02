@@ -1,5 +1,4 @@
 ﻿using Domain.Core.Base;
-using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Inbound;
 using Newtonsoft.Json;
 

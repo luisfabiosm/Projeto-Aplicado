@@ -2,8 +2,6 @@
 using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Models.Settings;
 using Domain.Core.Ports.Outbound;
-using Keycloak.Net.Models.Clients;
-using Microsoft.AspNetCore.Identity;
 using Refit;
 
 namespace Adapters.Outbound.IdentityAdapter
@@ -13,7 +11,7 @@ namespace Adapters.Outbound.IdentityAdapter
         private readonly IKeycloakAdminAPIPort _keycloakApi;
         private IdentityServerSettings _settings;
         internal static Domain.Core.Models.KeycloakAdminAPI.AccessToken _validToken = null;
-     
+
 
         public IdentityConnection(IdentityServerSettings settings)
         {
@@ -38,7 +36,7 @@ namespace Adapters.Outbound.IdentityAdapter
                 ClientId = _settings.AccessToken.ClientId ?? "",
                 GrantType = _settings.AccessToken.GrantType ?? ""
             };
-            
+
             _validToken = _keycloakApi.GetAccessToken(string.IsNullOrEmpty(realm) ? "master" : realm, _requestToken).Result;
             //_validToken = _keycloakApi.GetAccessToken("master", _requestToken).Result;
 

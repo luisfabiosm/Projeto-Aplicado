@@ -10,13 +10,13 @@ namespace Domain.Core.Models.Entities
         public int trancode { get; set; }
         public string transourceapp { get; set; }
         public string tranrequestinfo { get; set; }
-        public string trandetailinfo { get; set; }
+        public string? trandetailinfo{ get; set; } 
         public string tranresponseinfo { get; set; }
         public EnumStatusLog transtatus { get; set; }
 
         public LogTransaction()
         {
-
+            trandetailinfo = "";
         }
 
         public LogTransaction(DateTime date, int code)
@@ -25,6 +25,7 @@ namespace Domain.Core.Models.Entities
             tranrealdate = date;
             transtatus = EnumStatusLog.PENDING;
             tranlogid = Guid.NewGuid().ToString();
+            trandetailinfo = "";
         }
 
 

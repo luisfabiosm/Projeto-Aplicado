@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Adapters.Inbound.RestAdapters.Notification.VM
+﻿namespace Adapters.Inbound.RestAdapters.Notification.VM
 {
     public record NotifyUserRequest
     {

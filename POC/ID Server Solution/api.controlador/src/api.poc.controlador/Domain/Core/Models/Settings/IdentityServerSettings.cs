@@ -2,12 +2,30 @@
 {
     public record IdentityServerSettings
     {
-        public TokenSettings Token { get; set; }
+
+        public string Endpoint { get; set; }
+        public AccessTokenSettings AccessToken { get; set; }
+
+        public IdentityServerSettings()
+        {
+
+        }
     }
 
-
-    public struct TokenSettings
+    public record AccessTokenSettings
     {
-        public string Endpoint { get; set; }
+        public string ClientId { get; set; }
+
+        public string Username { get; set; }
+
+        public string Password { get; set; }
+
+        public string GrantType { get; set; }
+
+        public AccessTokenSettings()
+        {
+
+        }
+
     }
 }

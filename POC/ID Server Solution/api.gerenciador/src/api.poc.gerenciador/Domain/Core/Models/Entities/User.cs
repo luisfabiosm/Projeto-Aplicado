@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Domain.Core.Models.Entities
+﻿namespace Domain.Core.Models.Entities
 {
     public record User
     {
@@ -13,7 +11,7 @@ namespace Domain.Core.Models.Entities
         public string email { get; set; }
         public string identityuserinfo { get; set; }
 
-        
+
 
     }
 

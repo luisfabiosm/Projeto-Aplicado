@@ -1,27 +1,38 @@
-﻿using Domain.Core.Models.Entities;
-using Domain.Core.Models.Settings;
-using Domain.Core.Models.VO;
+﻿using Adapters.Outbound.IdentityAdapter.KeycloakPorts;
+using Domain.Core.Models.Entities;
+using Domain.Core.Models.Keycloak;
+using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Outbound;
-using Microsoft.Extensions.Options;
-using Refit;
 
 namespace Adapters.Outbound.IdentityServerAdapter
 {
     public class IdentityServerService : IIdentityServerServicePort
     {
-        internal IdentityServerSettings _settingsExternalIdentity;
-        private readonly IKeycloakService _identityClient;
+        private static string _adminAuthHeaders;
 
+        private IIdentityConnection _connection;
+        private readonly IKeycloakAdminAPIPort _keycloakApi;
         public IdentityServerService(IServiceProvider serviceProvider)
         {
-            _settingsExternalIdentity = serviceProvider.GetRequiredService<IOptions<IdentityServerSettings>>().Value;
-            _identityClient = RestService.For<IKeycloakService>(_settingsExternalIdentity.Token.Endpoint);
+            _connection = serviceProvider.GetRequiredService<IIdentityConnection>();
+            _keycloakApi = _connection.Connection();
+
         }
 
-        public async Task<TokenInfo> ExecuteGetToken(AuthCredentials credentials)
+        public async Task<AccessToken> GetAuthToken(AuthCredentials credentials)
         {
-            return await _identityClient.GetAccessTokenAsync(credentials.GrantType, credentials.ClientId, credentials.Username, credentials.Password, credentials.Secret);
+            var _accessRequest = new AccessTokenRequest
+            {
+                ClientId = credentials.ClientId,
+                Username = credentials.Username,
+                Password = credentials.Password,
+                GrantType = credentials.GrantType
+            };
+
+            return await _keycloakApi.GetAccessToken(credentials.Realm, _accessRequest);//, credentials.Secret);
         }
+
+
 
     }
 }

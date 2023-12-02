@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Adapters.Inbound.RestAdapters.VM
+﻿namespace Adapters.Inbound.RestAdapters.VM
 {
     public struct GetAuthorizationResponse
     {

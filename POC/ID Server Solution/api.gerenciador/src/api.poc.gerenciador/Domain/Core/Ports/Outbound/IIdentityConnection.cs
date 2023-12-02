@@ -1,5 +1,4 @@
 ﻿using Adapters.Outbound.IdentityAdapter.KeycloakPorts;
-using Npgsql;
 
 namespace Domain.Core.Ports.Outbound
 {
