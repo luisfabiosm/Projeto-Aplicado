@@ -21,8 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Adapters\Inbound\RestAdapters\Mapping\" />
-    <Folder Include="Adapters\Inbound\RestAdapters\VM\" />
-    <Folder Include="Adapters\Inbound\RestAdapters\Routes\" />
   </ItemGroup>
 
 </Project>

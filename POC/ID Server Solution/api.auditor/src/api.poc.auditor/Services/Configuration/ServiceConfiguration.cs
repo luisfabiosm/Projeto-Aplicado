@@ -1,6 +1,5 @@
 ﻿using Adapters.Inbound.Configuration;
 using Adapters.Inbound.RestAdapters.Configuration;
-using Adapters.Outbound.IdentityAdapter.Configuration;
 using Adapters.Outbund.DBAdapter.Configuration;
 using Domain.Core.Models.Settings;
 
