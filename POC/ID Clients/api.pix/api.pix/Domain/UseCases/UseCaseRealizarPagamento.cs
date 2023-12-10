@@ -10,7 +10,7 @@ namespace Domain.UseCases
     {
         public async Task<IResult> ProcessarTransacao(TransacaoRealizarPagamento transacao)
         {
-            throw new NotImplementedException();
+            return Results.Ok("PIX realizado com sucesso.");
         }
     }
 }

@@ -51,6 +51,8 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
 
                     var _retClientConfig = _identityService.GetClientById(transaction.ClientInfo.Realm, _retcliId);
 
+                    var _oidc = _retClientConfig.Result;
+
                     var _client = new Client
                     {
                         clientid = transaction.ClientInfo.ClientId,
@@ -60,7 +62,7 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
                         publicclient = true,
                         email = transaction.ClientInfo.Email,
                         name = transaction.ClientInfo.ClientName,
-                        appidentityconfiguration = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<OIDCInstalationToken>(_retClientConfig.Result)),
+                        appidentityconfiguration = _oidc,
                         realm = transaction.ClientInfo.Realm
 
                     };

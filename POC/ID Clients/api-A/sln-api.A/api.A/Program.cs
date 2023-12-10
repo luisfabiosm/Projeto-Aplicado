@@ -22,6 +22,9 @@ builder.Services.AddKeycloakAuth(configuration, builder);
 builder.Services.AddSwaggerAdapter();
 builder.Services.AddAuthorization();
 
+//Perceba que a opção ssl-required está marcada como none, pois
+//como estamos rodando em container não temos aqui
+//configurado ssl, por isso setamos como none;
 
 var app = builder.Build();
 

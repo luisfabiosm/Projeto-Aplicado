@@ -1,6 +1,7 @@
 ﻿using Domain.Contracts;
 using Domain.Models.Transacao;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Domain.UseCases
 {
@@ -10,7 +11,12 @@ namespace Domain.UseCases
     {
         public async Task<IResult> ProcessarTransacao(TransacaoConsultarChave transacao)
         {
-            throw new NotImplementedException();
+            return Results.Ok( new
+            {
+                Banco = 37,
+                Agencia = 15,
+                Conta = 21187
+            });
         }
     }
 }

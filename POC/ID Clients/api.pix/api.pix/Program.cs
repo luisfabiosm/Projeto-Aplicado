@@ -24,7 +24,7 @@ var app = builder.Build();
 
 app.MapPost("pix/chave", async (ConsultarChaveRequest request, IUseCaseConsultarChavePort _service) => { await _service.ProcessarTransacao(new TransacaoConsultarChave(request)); })
             .WithTags("Consulta Chave Pix")
-            .Accepts<RealizarPagamentoRequest>("application/json")
+            .Accepts<ConsultarChaveRequest>("application/json")
             .Produces<IResult>(StatusCodes.Status200OK)
             .Produces<BaseError>(StatusCodes.Status400BadRequest)
             .Produces<BaseError>(StatusCodes.Status500InternalServerError)

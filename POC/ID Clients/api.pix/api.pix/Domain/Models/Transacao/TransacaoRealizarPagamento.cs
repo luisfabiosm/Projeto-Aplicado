@@ -21,5 +21,5 @@ namespace Domain.Models.Transacao
     }
 
 
-    }
 }
+

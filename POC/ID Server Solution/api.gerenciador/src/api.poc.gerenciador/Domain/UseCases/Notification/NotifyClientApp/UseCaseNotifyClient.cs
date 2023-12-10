@@ -2,7 +2,9 @@
 using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Inbound;
 using Domain.Core.Ports.Outbound;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
+using System.Text;
+using System.Text.Json;
 
 namespace Domain.UseCases.Notification.NotifyClientApp
 {
@@ -19,7 +21,7 @@ namespace Domain.UseCases.Notification.NotifyClientApp
 
         public async Task<BaseReturn> ExecuteTransaction(TransactionNotifyClientApp transaction)
         {
-
+ 
             try
             {
                 transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
@@ -27,19 +29,15 @@ namespace Domain.UseCases.Notification.NotifyClientApp
                 var _client = await _repo.GetClient(transaction.Realm, transaction.ClientId);
 
                 var _retClients = await _identityService.GetClientById(transaction.Realm, _client.id);
+                await _notifyService.SendEmail(_client.email, "Client configuration OIDC", _retClients);
 
-                var _notify = JsonConvert.DeserializeObject<OIDCInstalationToken>(_retClients);
-
-                await _notifyService.SendEmail(_client.email, "Client configuration OIDC", JsonConvert.SerializeObject(_notify));
-
-                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(_notify);
+                transaction.TransactionLog.tranresponseinfo = _retClients;
                 transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.CONFIRMED;
-
-                return handleReturn(_notify);
+                return handleReturn(JsonSerializer.Deserialize<object>(_retClients));
             }
             catch (Exception ex)
             {
-                transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(ex);
+                transaction.TransactionLog.tranresponseinfo = JsonSerializer.Serialize(ex);  //JsonConvert.SerializeObject(ex);
                 transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.PENDING;
                 return handleReturn(ex);
             }

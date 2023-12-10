@@ -37,7 +37,7 @@ namespace Adapters.Inbound.RestAdapters.Configuration
             app.AddRegisterClientApplicationEndpoint();
             app.AddGetClientApplicationEndpoint();
             app.AddListClientsApplicationEndpoint();
-            //app.AddNotifyClientEndpoint();
+            app.AddNotifyClientEndpoint();
 
 
         }

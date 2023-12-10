@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("c44a550a-a411-4c5a-a0d8-81a9b5ca1bbc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7eca9e68a6e4164363ae2ce4f46096c2147aba10")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a281ee80da94cf18b3c3864014548307861aa0d")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
