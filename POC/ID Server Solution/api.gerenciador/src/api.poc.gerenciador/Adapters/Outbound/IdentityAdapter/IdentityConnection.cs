@@ -37,7 +37,7 @@ namespace Adapters.Outbound.IdentityAdapter
                 GrantType = _settings.AccessToken.GrantType ?? ""
             };
 
-            _validToken = _keycloakApi.GetAccessToken(string.IsNullOrEmpty(realm) ? "master" : realm, _requestToken).Result;
+            _validToken = _keycloakApi.GetAccessToken(string.IsNullOrEmpty(realm) ? _settings.Realm : realm, _requestToken).Result;
             //_validToken = _keycloakApi.GetAccessToken("master", _requestToken).Result;
 
             return _validToken.access_token;

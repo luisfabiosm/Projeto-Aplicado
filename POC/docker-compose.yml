@@ -2,17 +2,21 @@ version: '3'
 services:
 
   keycloak:
-    image: quay.io/keycloak/keycloak:22.0.5
+    image: quay.io/keycloak/keycloak:latest
     container_name: mykeycloak
     ports:
-      - "8089:8080"
+      - "8080:8080"
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       DB_VENDOR: h2
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
-      #KEYCLOAK_FRONTEND_URL: ''
+    command: 
+        - start-dev  
+        - --import-realm
+    volumes:
+      - /home/keycloak/realm.json:/opt/keycloak/data/import/realm.json
       
   db:
     image: postgres

@@ -10,6 +10,7 @@ namespace Adapters.Outbound.IdentityAdapter
 
         private IIdentityConnection _connection;
         private readonly IKeycloakAdminAPIPort _keycloakApi;
+
         public IdentityServerService(IServiceProvider serviceProvider)
         {
             _connection = serviceProvider.GetRequiredService<IIdentityConnection>();
@@ -158,7 +159,7 @@ namespace Adapters.Outbound.IdentityAdapter
                     {
                         { "id.token.claim", "false" },
                         { "access.token.claim", "true" },
-                        { "included.client.audience", $"{clientName}" },
+                        { "included.client.audience", $"{clientId}" },//clientName
                         { "included.custom.audience", $"" },
                     }
                 };

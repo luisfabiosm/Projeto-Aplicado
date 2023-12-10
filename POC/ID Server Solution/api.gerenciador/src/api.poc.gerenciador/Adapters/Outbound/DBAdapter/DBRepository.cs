@@ -153,7 +153,7 @@ namespace Adapters.Outbound.DBAdapter
         {
 
 
-            string commandSQL = "SELECT * FROM Client WHERE realm = @realm AND clientid = @clientid AND IsActive = true";
+            string commandSQL = "SELECT * FROM public.client WHERE realm = @realm AND clientid = @clientid AND isactive = true";
 
             var queryArgs = new
             {

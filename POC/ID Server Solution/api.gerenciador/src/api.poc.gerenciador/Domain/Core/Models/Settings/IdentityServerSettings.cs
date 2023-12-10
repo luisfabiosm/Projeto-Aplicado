@@ -4,6 +4,7 @@
     {
 
         public string Endpoint { get; set; }
+        public string Realm { get; set; }
         public AccessTokenSettings AccessToken { get; set; }
 
         public IdentityServerSettings()
