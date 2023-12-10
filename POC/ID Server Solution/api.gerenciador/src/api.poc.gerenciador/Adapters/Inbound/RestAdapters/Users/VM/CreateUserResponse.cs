@@ -11,7 +11,6 @@ namespace Adapters.Inbound.RestAdapters.Users.VM
         public string syspassword { get; set; }
         public string email { get; set; }
 
-
         public CreateUserResponse(User user)
         {
             this.realm = user.realm;
@@ -19,6 +18,7 @@ namespace Adapters.Inbound.RestAdapters.Users.VM
             this.sysusername = user.sysusername;
             this.syspassword = user.syspassword;
             this.email = user.email;
+
         }
 
     }

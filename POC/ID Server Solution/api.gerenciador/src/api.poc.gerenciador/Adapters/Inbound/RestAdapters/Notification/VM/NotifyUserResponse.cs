@@ -9,7 +9,7 @@ namespace Adapters.Inbound.RestAdapters.Notification.VM
 {
     public record NotifyUserResponse
     {
-        [JsonPropertyName("garnt_type")]
+        [JsonPropertyName("grant_type")]
         public string GrantType { get; internal set; }
 
         [JsonPropertyName("client_id")]
@@ -21,7 +21,10 @@ namespace Adapters.Inbound.RestAdapters.Notification.VM
         [JsonPropertyName("password")]
         public string Password { get; internal set; }
 
-        public NotifyUserResponse(User user)
+        [JsonPropertyName("secret")]
+        public string Secret { get; internal set; }
+
+        public NotifyUserResponse(User user, string secret)
         {
             var _token = JsonConvert.DeserializeObject<AccessToken>(user.identityuserinfo);
 
@@ -30,6 +33,7 @@ namespace Adapters.Inbound.RestAdapters.Notification.VM
             this.Username = user.sysusername;
             this.ClientId = user.clientid;
             this.Password = user.syspassword;
+            this.Secret = secret;
 
         }
     }

@@ -11,8 +11,6 @@
         public string email { get; set; }
         public string identityuserinfo { get; set; }
 
-
-
     }
 
 

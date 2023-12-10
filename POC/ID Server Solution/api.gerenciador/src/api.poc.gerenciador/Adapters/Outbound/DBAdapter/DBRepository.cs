@@ -25,13 +25,13 @@ namespace Adapters.Outbound.DBAdapter
         public async ValueTask<User> GetUser(string realm, string clientid, string username)
         {
 
-            string commandSQL = "SELECT * FROM users WHERE realm = @Realm AND clientid = @ClientId AND sysusername = @SysUsername AND isactive = true";
+            string commandSQL = "SELECT * FROM public.user WHERE realm = @realm AND clientid = @clientid AND sysusername = @sysusername AND isactive = true";
 
             var queryArgs = new
             {
-                Realm = realm,
-                ClientId = clientid,
-                SysUsername = username
+                realm = realm,
+                clientid = clientid,
+                sysusername = username
             };
 
             var user = await _session.QueryFirstOrDefaultAsync<User>(commandSQL, queryArgs);
@@ -123,7 +123,7 @@ namespace Adapters.Outbound.DBAdapter
         public async ValueTask<User> AddNewUser(TransactionCreateUser transaction, UserRepresentation user)
         {
 
-            string commandSQL = $@"INSERT INTO public.users (realm, clientid, sysusername, syspassword, createdat, isactive , email,  identityuserinfo)
+            string commandSQL = $@"INSERT INTO public.user (realm, clientid, sysusername, syspassword, createdat, isactive , email,  identityuserinfo)
                                                     VALUES (@realm, @clientid, @sysusername, @syspassword, @createdat, @isactive,  @email, @identityuserinfo)";
 
 
@@ -138,12 +138,18 @@ namespace Adapters.Outbound.DBAdapter
                 identityuserinfo = JsonConvert.SerializeObject(user),
                 email = transaction.UserInfo.Email,
             };
+            try
+            {
+                var ret = await _session.ExecuteAsync(commandSQL, _insertArgs);
+                if (ret <= 0) throw new Exception("Erro gravação do usuario.");
 
-            var ret = await _session.ExecuteAsync(commandSQL, _insertArgs);
-            if (ret <= 0) throw new Exception("Erro gravação do usuario.");
 
-
-            commandSQL = $"SELECT * FROM public.users where clientid = '{_insertArgs.clientid}'";
+                commandSQL = $"SELECT * FROM public.user where clientid = '{_insertArgs.clientid}'";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             return await _session.QueryFirstOrDefaultAsync<User>(commandSQL);
         }

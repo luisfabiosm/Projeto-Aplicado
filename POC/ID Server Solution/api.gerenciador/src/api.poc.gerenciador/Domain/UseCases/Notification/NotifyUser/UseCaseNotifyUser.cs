@@ -1,5 +1,7 @@
 ﻿using Adapters.Inbound.RestAdapters.Notification.VM;
 using Domain.Core.Base;
+using Domain.Core.Models.Entities;
+using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Inbound;
 using Domain.Core.Ports.Outbound;
 using Newtonsoft.Json;
@@ -31,7 +33,9 @@ namespace Domain.UseCases.Notification.NotifyUser
                 transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(_userInfo);
                 transaction.TransactionLog.transtatus = Core.Enums.EnumStatusLog.CONFIRMED;
 
-                return handleReturn(new NotifyUserResponse(_userInfo));
+                var _oidc = JsonConvert.DeserializeObject<OIDCInstalationToken>((await _repo.GetClient(transaction.Realm, transaction.ClientId)).appidentityconfiguration);
+
+                return handleReturn(new NotifyUserResponse(_userInfo, _oidc.Credentials.Secret));
             }
             catch (Exception ex)
             {

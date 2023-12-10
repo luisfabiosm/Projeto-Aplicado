@@ -74,6 +74,11 @@
 
         [JsonProperty("userProfileMetadata")]
         public UserProfileMetadata UserProfileMetadata { get; init; }
+
+        public UserRepresentation()
+        {
+            
+        }
     }
 
 
