@@ -11,6 +11,7 @@
         public DateTime createdat { get; set; }
         public bool isactive { get; set; }
         public string email { get; set; }
+        public string secret { get; set; }
         public string appidentityconfiguration { get; set; } //KeycloakConfiguration
     }
 }

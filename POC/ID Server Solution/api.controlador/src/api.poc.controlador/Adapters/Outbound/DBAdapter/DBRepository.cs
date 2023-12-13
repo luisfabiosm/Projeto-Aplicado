@@ -2,7 +2,6 @@
 using Domain.Core.Base;
 using Domain.Core.Models.Entities;
 using Domain.Core.Ports.Outbound;
-using Keycloak.AuthServices.Sdk.Admin.Models;
 using Newtonsoft.Json;
 using Npgsql;
 
@@ -21,10 +20,20 @@ namespace Adapters.Outbound.DBAdapter
             _session = _connection.Connection();
         }
 
-        public async ValueTask<Operator> GetAuthenticationInfo(string clientid, string user, string secret)
+        public async ValueTask<Client> GetClient(string realm, string clientid)
         {
-            string commandSQL = $"SELECT * FROM userauthentication where User = '{user}' AND Password = '{secret}'";
-            return await _session.QueryFirstOrDefaultAsync<Operator>(commandSQL);
+            string commandSQL = "SELECT * FROM public.client WHERE realm = @realm " +
+                "                AND clientid = @clientid " +
+                "                AND isactive = true" ;
+
+            var queryArgs = new
+            {
+                realm = realm,
+                clientid = clientid,
+         
+            };
+
+            return await _session.QueryFirstOrDefaultAsync<Client>(commandSQL, queryArgs);
         }
 
 
@@ -59,13 +68,13 @@ namespace Adapters.Outbound.DBAdapter
         public async ValueTask<User> GetUser(string realm, string clientid, string username)
         {
 
-            string commandSQL = "SELECT * FROM users WHERE realm = @Realm AND clientid = @ClientId AND sysusername = @SysUsername AND isactive = true";
+            string commandSQL = "SELECT * FROM public.user WHERE realm = @realm AND clientid = @ClientId AND sysusername = @SysUsername AND isactive = true";
 
             var queryArgs = new
             {
-                Realm = realm,
-                ClientId = clientid,
-                SysUsername = username
+                realm = realm,
+                clientid = clientid,
+                sysusername = username
             };
 
             var user = await _session.QueryFirstOrDefaultAsync<User>(commandSQL, queryArgs);

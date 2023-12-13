@@ -1,4 +1,4 @@
-﻿using Adapters.Outbound.IdentityAdapter.KeycloakPorts;
+﻿using Adapters.Outbound.IdentityServerAdapter.KeycloakPorts;
 
 namespace Domain.Core.Ports.Outbound
 {

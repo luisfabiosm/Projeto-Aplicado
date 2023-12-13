@@ -94,8 +94,8 @@ namespace Adapters.Outbound.DBAdapter
 
         public async ValueTask<Client> AddNewClient(Client client)
         {
-            string commandSQL = $@"INSERT INTO public.client (realm, id, clientid, name, publicclient, createdat, isactive, email, appidentityconfiguration)
-                                                    VALUES (@realm, @id, @clientid, @name, @publicclient, @createdat, @isactive,  @email, @appidentityconfiguration)";
+            string commandSQL = $@"INSERT INTO public.client (realm, id, clientid, name, publicclient, createdat, isactive, email, appidentityconfiguration, secret)
+                                                    VALUES (@realm, @id, @clientid, @name, @publicclient, @createdat, @isactive,  @email, @appidentityconfiguration, @secret)";
 
 
             var _insertArgs = new Client
@@ -109,6 +109,7 @@ namespace Adapters.Outbound.DBAdapter
                 isactive = true,
                 appidentityconfiguration = client.appidentityconfiguration,
                 email = client.email,
+                secret = client.secret
             };
 
             var ret = await _session.ExecuteAsync(commandSQL, _insertArgs);

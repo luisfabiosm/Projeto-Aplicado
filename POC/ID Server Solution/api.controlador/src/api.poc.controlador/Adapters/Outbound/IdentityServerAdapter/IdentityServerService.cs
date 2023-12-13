@@ -1,7 +1,6 @@
-﻿using Adapters.Outbound.IdentityAdapter.KeycloakPorts;
+﻿using Adapters.Outbound.IdentityServerAdapter.KeycloakPorts;
 using Domain.Core.Models.Entities;
 using Domain.Core.Models.Keycloak;
-using Domain.Core.Models.KeycloakAdminAPI;
 using Domain.Core.Ports.Outbound;
 
 namespace Adapters.Outbound.IdentityServerAdapter
@@ -26,7 +25,9 @@ namespace Adapters.Outbound.IdentityServerAdapter
                 ClientId = credentials.ClientId,
                 Username = credentials.Username,
                 Password = credentials.Password,
-                GrantType = credentials.GrantType
+                GrantType = credentials.GrantType,
+                Secret = credentials.Secret
+                
             };
 
             return await _keycloakApi.GetAccessToken(credentials.Realm, _accessRequest);//, credentials.Secret);

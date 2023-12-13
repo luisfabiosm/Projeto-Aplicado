@@ -1,9 +1,9 @@
-﻿using Adapters.Outbound.IdentityAdapter.KeycloakPorts;
+﻿using Adapters.Outbound.IdentityServerAdapter.KeycloakPorts;
 using Domain.Core.Models.Settings;
 using Domain.Core.Ports.Outbound;
 using Refit;
 
-namespace Adapters.Outbound.IdentityAdapter
+namespace Adapters.Outbound.IdentityServerAdapter
 {
     public class IdentityConnection : IIdentityConnection
     {

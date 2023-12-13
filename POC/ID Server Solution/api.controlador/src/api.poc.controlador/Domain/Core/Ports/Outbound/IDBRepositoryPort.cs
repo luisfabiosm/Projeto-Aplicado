@@ -10,7 +10,9 @@ namespace Domain.Core.Ports.Outbound
 
         ValueTask<LogTransaction> UpdateLogTransaction(BaseTransaction transaction);
 
-        // ValueTask<Operator> GetAuthenticationInfo(string user, string secret);
+        ValueTask<Client> GetClient(string realm, string clientid);
+
+        ValueTask<User> GetUser(string realm, string clientid, string username);
 
         //ValueTask<bool> UpdateAuthenticationInfo(TokenInfo token, string user, string secret);
     }

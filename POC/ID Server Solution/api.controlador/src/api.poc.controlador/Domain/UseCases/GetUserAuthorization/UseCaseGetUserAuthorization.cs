@@ -2,6 +2,7 @@
 using Domain.Core.Models.Entities;
 using Domain.Core.Ports.Inbound;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace Domain.UseCases.GetUserAuthorization
 {
@@ -21,21 +22,14 @@ namespace Domain.UseCases.GetUserAuthorization
                 transaction.TransactionLog = await _repo.SaveLogTransaction(transaction.TransactionLog, transaction);
 
 
-                //var operatorret = await UseCaseValidation(transaction);
-                //if (operatorret is null)
-                //    return handleReturn(new Exception("User e Secret não registrados ou inativos."));
+                var retClient = await UseCaseValidation(transaction);
+                if (retClient is null)
+                    return handleReturn(new Exception("User não registrado para consumir esse ClientId."));
 
 
-                var _operator = new AuthCredentials(transaction);
+                var _operator = new AuthCredentials(transaction, retClient);
 
                 var tokenret = await _identityService.GetAuthToken(_operator);
-
-                //var updateret = await _repo.UpdateAuthenticationInfo(JsonConvert.DeserializeObject<TokenInfo>(tokenret.ToString()),
-                //                                                    transaction.UserRequest,
-                //                                                    transaction.SecretRequest);
-
-                //if (!updateret)
-                //    return handleReturn(new Exception("Erro na atualização de retorno da geração do token."));
 
                 transaction.TransactionLog.tranresponseinfo = JsonConvert.SerializeObject(tokenret);
 
@@ -54,10 +48,14 @@ namespace Domain.UseCases.GetUserAuthorization
             }
         }
 
-        //private async Task<Operator> UseCaseValidation(TransactionGetAuthorization transaction)
-        //{
-        //    var ret = await _repo.GetAuthenticationInfo(transaction.UserRequest, transaction.PassworRequest);
-        //    return ret;
-        //}
+        private async Task<Client> UseCaseValidation(TransactionGetAuthorization transaction)
+        {
+            var retUser = await _repo.GetUser(transaction.Realm, transaction.ClientId, transaction.UserRequest);
+            if (retUser is null)
+                handleReturn(new Exception("User não registrado."));
+
+            var ret = await _repo.GetClient(transaction.Realm, retUser.clientid);
+            return ret;
+        }
     }
 }

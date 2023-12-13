@@ -1,4 +1,5 @@
 ﻿using Domain.UseCases.GetUserAuthorization;
+using System.Runtime.InteropServices;
 
 namespace Domain.Core.Models.Entities
 {
@@ -9,17 +10,17 @@ namespace Domain.Core.Models.Entities
         public string ClientId { get; internal set; }
         public string Username { get; internal set; }
         public string Password { get; internal set; }
-        //public string Secret { get; internal set; }
-        //public List<string> Scopes { get; internal set; }
+        public string Secret { get; internal set; }
+      
 
-
-        public AuthCredentials(TransactionGetAuthorization transaction)
+        public AuthCredentials(TransactionGetAuthorization transaction, Client client )
         {
             this.GrantType = "password";
             this.ClientId = transaction.ClientId;
             this.Username = transaction.UserRequest;
             this.Password = transaction.PassworRequest;
             this.Realm = transaction.Realm;
+            this.Secret = client.secret;
         }
 
         ~AuthCredentials()
@@ -29,6 +30,7 @@ namespace Domain.Core.Models.Entities
             Username = null;
             Password = null;
             Realm = null;
+            Secret = null;
         }
     }
 }

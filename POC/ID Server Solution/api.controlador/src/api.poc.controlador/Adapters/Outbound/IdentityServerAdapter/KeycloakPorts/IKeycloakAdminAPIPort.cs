@@ -1,8 +1,7 @@
 ﻿using Domain.Core.Models.Keycloak;
-using Domain.Core.Models.KeycloakAdminAPI;
 using Refit;
 
-namespace Adapters.Outbound.IdentityAdapter.KeycloakPorts
+namespace Adapters.Outbound.IdentityServerAdapter.KeycloakPorts
 {
     public interface IKeycloakAdminAPIPort
     {

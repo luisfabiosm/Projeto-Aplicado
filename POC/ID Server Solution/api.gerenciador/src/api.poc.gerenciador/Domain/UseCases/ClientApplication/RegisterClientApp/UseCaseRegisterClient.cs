@@ -63,8 +63,8 @@ namespace Domain.UseCases.ClientApplication.RegisterClientApp
                         email = transaction.ClientInfo.Email,
                         name = transaction.ClientInfo.ClientName,
                         appidentityconfiguration = _oidc,
-                        realm = transaction.ClientInfo.Realm
-
+                        realm = transaction.ClientInfo.Realm,
+                        secret = JsonConvert.DeserializeObject<OIDCInstalationToken>(_oidc).Credentials.Secret
                     };
 
 

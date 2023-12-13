@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Domain.Core.Models.KeycloakAdminAPI
+namespace Domain.Core.Models.Keycloak
 {
     public record AccessTokenRequest
     {
@@ -15,6 +15,9 @@ namespace Domain.Core.Models.KeycloakAdminAPI
 
         [JsonPropertyName("grant_type")]
         public string GrantType { get; set; }
+
+        [JsonPropertyName("client_secret")]
+        public string Secret { get; set; }
 
         public AccessTokenRequest()
         {

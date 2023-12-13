@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("api.poc.controlador")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3aed34748440ff9c292fcf2bb991f829b528b36b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92ac8e0feab205be25913562938a56b8804b44ad")]
 [assembly: System.Reflection.AssemblyProductAttribute("api.poc.controlador")]
 [assembly: System.Reflection.AssemblyTitleAttribute("api.poc.controlador")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
